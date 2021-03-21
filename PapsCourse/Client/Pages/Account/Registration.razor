@@ -1,0 +1,106 @@
+﻿@page "/account/registration"
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+
+@using PapsCourse.Shared.Account
+@using PapsCourse.Shared
+
+<link href="/css/forms.css" rel="stylesheet" />
+
+<div class="container px-0">
+    <div class="form-container d-flex justify-content-center py-3 px-4 mt-1 flex-column">
+        <div class="form-title px-4">
+            Регистрация
+        </div>
+        <div class="fields-container px-3 py-2">
+            <div class="pt-2 pb-1">
+                Фамилия:
+            </div>
+            <div>
+                <input type="text" name="login" id="" class="form-input-field" @bind="lastname">
+            </div>
+            <div class="pt-2 pb-1">
+                Имя:
+            </div>
+            <div>
+                <input type="text" name="login" id="" class="form-input-field" @bind="name">
+            </div>
+            <div class="pt-2 pb-1">
+                Отчество:
+            </div>
+            <div>
+                <input type="text" name="login" id="" class="form-input-field" @bind="patronymic">
+            </div>
+            <div class="pt-2 pb-1">
+                Номер телефона:
+            </div>
+            <div>
+                <input type="text" name="login" id="" class="form-input-field" @bind="phoneNumber">
+            </div>
+            <div class="pt-2 pb-1">
+                Email:
+            </div>
+            <div>
+                <input type="email" name="email" id="" class="form-input-field" @bind="email">
+            </div>
+            <div class="pt-2 pb-1">
+                Пароль:
+            </div>
+            <div>
+                <input type="password" name="password" id="" class="form-input-field" @bind="password">
+            </div>
+            <div class="pt-2 pb-1">
+                Повторите пароль:
+            </div>
+            <div>
+                <input type="password" name="confirmPassword" id="" class="form-input-field" @bind="confirmPassword">
+            </div>
+            <div class="pt-4">
+                <input type="submit" value="Готово" class="form-submit" @onclick="RegisterAsync">
+            </div>
+        </div>
+        <div class="form-alt-container">
+            <a href="/account/login" class="form-alt">Есть аккаунт? Войти</a>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    private string name;
+    private string lastname;
+    private string patronymic;
+    private string email;
+    private string phoneNumber;
+    private string password;
+    private string confirmPassword;
+
+    private async Task RegisterAsync()
+    {
+
+
+        if (password == confirmPassword)
+        {
+            // and others checks
+
+            var request = new RegistrationRequest()
+            {
+                Name = name,
+                Lastname = lastname,
+                Patronymic = patronymic,
+                Email = email,
+                PhoneNumber = phoneNumber,
+                Password = password
+            };
+
+            var response = await HttpClient.PostAsJsonAsync("/account/registration", request);
+            var result = await response.Content.ReadFromJsonAsync<Response>();
+            if (result.IsSuccessfull)
+            {
+                NavigationManager.NavigateTo("/");
+            }
+
+            // errors handling
+        }
+    }
+}

@@ -1,0 +1,53 @@
+﻿.form-container {
+    border: 2px solid #DFE0E1;
+    background-color: #F8F9FA;
+    /* border-radius: 10px;     */
+    width: 400px;
+    margin: 0 auto;
+}
+
+.form-title {
+    font-size: 26px;
+    /* background-color: white; */
+    text-align: center;
+}
+
+.fields-container {
+    background-color: #F8F9FA;
+}
+
+.form-submit {
+    border: 1px solid rgb(2, 1, 2);
+    background-color: purple;
+    color: white;
+    padding: 3px 25px;
+    cursor: pointer;
+    /* border-radius: 10px;     */
+    margin: 0 auto;
+    display: block;
+}
+
+    .form-submit:hover {
+        background-color: white;
+        color: purple;
+    }
+
+.form-input-field {
+    width: 100%;
+}
+
+.form {
+    width: 80%;
+}
+
+.form-alt {
+    color: purple;
+}
+
+    .form-alt:hover {
+        color: purple;
+    }
+
+.form-alt-container {
+    text-align: center;
+}

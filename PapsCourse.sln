@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapsCourse.Server", "PapsCourse\Server\PapsCourse.Server.csproj", "{FAA82F6D-FA80-449A-B80F-B5AB3FA75B73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PapsCourse.Server", "PapsCourse\Server\PapsCourse.Server.csproj", "{FAA82F6D-FA80-449A-B80F-B5AB3FA75B73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapsCourse.Client", "PapsCourse\Client\PapsCourse.Client.csproj", "{F48194C6-6300-4509-AE9A-EC27CED3469F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PapsCourse.Client", "PapsCourse\Client\PapsCourse.Client.csproj", "{F48194C6-6300-4509-AE9A-EC27CED3469F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapsCourse.Shared", "PapsCourse\Shared\PapsCourse.Shared.csproj", "{7F170C6C-C78C-4D03-8690-B78BF522531E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PapsCourse.Shared", "PapsCourse\Shared\PapsCourse.Shared.csproj", "{7F170C6C-C78C-4D03-8690-B78BF522531E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

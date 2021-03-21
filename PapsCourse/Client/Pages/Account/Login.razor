@@ -1,0 +1,65 @@
+﻿@page "/account/login"
+@inject PapsCourse.Client.Services.Abstract.IAccountSession Session
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+
+@using PapsCourse.Shared.Account
+@using PapsCourse.Shared
+
+
+<link href="/css/forms.css" rel="stylesheet" />
+
+<div class="container px-0">
+    <div class="form-container d-flex justify-content-center py-3 px-4 mt-5 flex-column">
+        <div class="form-title px-4">
+            Вход в кабинет
+        </div>
+        <div class="fields-container px-3 py-2">
+            <div class="pt-2 pb-1">
+                Email:
+            </div>
+            <div>
+                <input type="text" class="form-input-field" @bind="email">
+            </div>
+            <div class="pt-2 pb-1">
+                Пароль:
+            </div>
+            <div>
+                <input type="password" class="form-input-field" @bind="password">
+            </div>
+            <div class="pt-4">
+                <input type="submit" value="Войти" class="form-submit" @onclick="AuthenticateAsync">
+            </div>
+        </div>
+        <div class="form-alt-container">
+            <a href="/account/registration" class="form-alt">Нет аккаунта? Регистрация</a>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    private string email;
+    private string password;
+
+    private async Task AuthenticateAsync()
+    {
+        var request = new AuthenticationRequest()
+        {
+            Email = email,
+            Password = password
+        };
+        var response = await HttpClient.PostAsJsonAsync("/account/login", request);
+        var result = await response.Content.ReadFromJsonAsync<Response>();
+        if (result.IsSuccessfull)
+        {
+            var tokens = result.GetData<JwtTokens>();
+            Session.SetSession(tokens.AccessToken);
+            // refresh token
+            NavigationManager.NavigateTo("/");
+        }
+
+        // errors handling
+
+    }
+}
