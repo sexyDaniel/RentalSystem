@@ -14,11 +14,12 @@ namespace PapsCourse.Server.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private IUserRepository userRepository;
-        public AccountController(IUserRepository userRepository) 
+        
+        public AccountController() 
         {
-            this.userRepository = userRepository;
+            
         }
+
         private List<string> people = new List<string>
         {
             "dscdscdsc",
