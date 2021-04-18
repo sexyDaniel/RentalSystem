@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Shared\PapsCourse.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\Новая папка\" />
+  </ItemGroup>
+
 </Project>

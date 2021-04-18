@@ -21,3 +21,17 @@
 .floor{
     height:500px;
 }
+
+.area-photo{
+    display: block;
+    width: 100%;
+}
+
+.area-photo-container{
+    width: 200px;
+}
+
+.area-photos-container{
+    height: 400px;
+    overflow-y: scroll;
+}

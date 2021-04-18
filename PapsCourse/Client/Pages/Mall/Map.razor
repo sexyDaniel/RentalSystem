@@ -28,6 +28,7 @@
             }
         </ul>
     </div>
+
     <div class="floor-container">
         @switch (selectedFloor)
         {
@@ -108,6 +109,55 @@
         }
     </div>
 
+    <div class="area-info-container">
+        <div class="row">
+            <div class="col-6">
+                <img src="/images/areas/plan-1.jpg" />
+            </div>
+            <div class="col-6 area-photos-container d-flex flex-wrap">
+                <div class="area-photo-container">
+                    <img class="area-photo" src="/images/areas/area-1.jpg" />
+                </div>
+                <div class="area-photo-container">
+                    <img class="area-photo" src="/images/areas/area-1.jpg" />
+                </div>
+                <div class="area-photo-container">
+                    <img class="area-photo" src="/images/areas/area-1.jpg" />
+                </div>
+                <div class="area-photo-container">
+                    <img class="area-photo" src="/images/areas/area-1.jpg" />
+                </div>
+                <div class="area-photo-container">
+                    <img class="area-photo" src="/images/areas/area-1.jpg" />
+                </div>
+                <div class="area-photo-container">
+                    <img class="area-photo" src="/images/areas/area-1.jpg" />
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <div>
+                Информация
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    Размер:
+                </div>
+                <div class="col">
+                    20 м
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    Кондиционер:
+                </div>
+                <div class="col">
+                    есть
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 @code {
@@ -137,4 +187,4 @@
         isLoading = false;
     }
 
-    }
+}
