@@ -1,0 +1,23 @@
+﻿.svg-element{    
+    pointer-events: all;
+}
+
+.darkred:hover {
+    fill: red !important;
+}
+
+.purple:hover {
+    fill: mediumpurple !important;
+}
+
+.green:hover {
+    fill: lightgreen !important;
+}
+
+.page-link{
+    cursor:pointer;
+}
+
+.floor{
+    height:500px;
+}
