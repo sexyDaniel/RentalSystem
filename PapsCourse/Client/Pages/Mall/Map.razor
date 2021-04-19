@@ -1,5 +1,4 @@
 ﻿@page "/map"
-<h3>Map</h3>
 <link href="/css/mall/map.css" type="text/css" rel="stylesheet" />
 <link href="/css/loading.css" type="text/css" rel="stylesheet" />
 
@@ -16,6 +15,7 @@
         </div>
     }
 
+    <h3 class="mb-4">Карта ТЦ "Peach"</h3>
     <div class="floors-container d-flex align-items-center">
         <p>Этаж: </p>
         <ul class="pagination ml-2">
@@ -34,7 +34,7 @@
         {
             case 1:
                 <svg id="first-floor" class="floor" viewBox="52.407 10.014 1215.309 609.711" xmlns="http://www.w3.org/2000/svg">
-                    <polyline style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" points="629.696 270.474" />
+                    @*<polyline style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" points="629.696 270.474" />*@
                     <rect class="svg-element purple" x="335.036" y="54.999" width="47.968" height="82.916" style="fill: rgb(102, 51, 153);" />
                     <rect class="svg-element purple" x="389.171" y="54.656" width="47.968" height="82.916" style="fill: rgb(102, 51, 153);" />
                     <rect class="svg-element purple" x="443.649" y="54.142" width="47.968" height="82.916" style="fill: rgb(102, 51, 153);" />
@@ -42,7 +42,7 @@
                     <rect class="svg-element purple" x="333.837" y="167.638" width="47.968" height="82.916" style="fill: rgb(102, 51, 153);" />
                     <rect class="svg-element purple" x="387.972" y="167.295" width="47.968" height="82.916" style="fill: rgb(102, 51, 153);" />
                     <rect class="svg-element purple" x="442.764" y="166.438" width="102.788" height="82.916" style="fill: rgb(102, 51, 153);" />
-                    <polygon class="svg-element green" style="stroke: rgb(0, 0, 0); fill: rgb(0, 120, 0);" points="208.291 249.978 208.291 168.386 124.636 168.386 124.636 208.184 163.939 249.293" transform="matrix(-1, 0, 0, -1, 332.927002, 418.363998)" />
+                    <polygon @onclick="()=>ShowAreaInfo(1)" class="svg-element green" style="stroke: rgb(0, 0, 0); fill: rgb(0, 120, 0);" points="208.291 249.978 208.291 168.386 124.636 168.386 124.636 208.184 163.939 249.293" transform="matrix(-1, 0, 0, -1, 332.927002, 418.363998)" />
                     <polygon class="svg-element green" style="stroke: rgb(0, 0, 0); fill: rgb(0, 120, 0);" points="327.525 167.7 327.525 249.292 243.87 249.292 243.87 209.494 283.173 168.385" />
                     <polygon class="svg-element green" style="stroke: rgb(0, 0, 0); fill: rgb(0, 120, 0);" points="327.526 137.424 327.526 55.832 243.871 55.832 243.871 95.63 283.174 136.739" />
                     <polygon class="svg-element green" style="stroke: rgb(0, 0, 0); fill: rgb(0, 120, 0);" points="208.976 55.948 208.976 137.54 125.321 137.54 125.321 97.742 164.624 56.633" transform="matrix(-1, 0, 0, -1, 334.296997, 193.487999)" />
@@ -109,67 +109,93 @@
         }
     </div>
 
-    <div class="area-info-container">
-        <div class="row">
-            <div class="col-6">
-                <img src="/images/areas/plan-1.jpg" />
+    @if (isAreaInfoShowed)
+    {
+        <div class="area-info-container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3>Торговое помещение #4095</h3>
+                <button class="close-btn" @onclick="HideAreaInfo">➥</button>
             </div>
-            <div class="col-6 area-photos-container d-flex flex-wrap">
-                <div class="area-photo-container">
-                    <img class="area-photo" src="/images/areas/area-1.jpg" />
-                </div>
-                <div class="area-photo-container">
-                    <img class="area-photo" src="/images/areas/area-1.jpg" />
-                </div>
-                <div class="area-photo-container">
-                    <img class="area-photo" src="/images/areas/area-1.jpg" />
-                </div>
-                <div class="area-photo-container">
-                    <img class="area-photo" src="/images/areas/area-1.jpg" />
-                </div>
-                <div class="area-photo-container">
-                    <img class="area-photo" src="/images/areas/area-1.jpg" />
-                </div>
-                <div class="area-photo-container">
-                    <img class="area-photo" src="/images/areas/area-1.jpg" />
-                </div>
-            </div>
-        </div>
-        <div class="">
-            <div>
-                Информация
-            </div>
-            <div class="row">
-                <div class="col-3">
-                    Размер:
-                </div>
-                <div class="col">
-                    20 м
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-3">
-                    Кондиционер:
-                </div>
-                <div class="col">
-                    есть
-                </div>
-            </div>
-        </div>
-    </div>
 
+            <div class="row">
+                <div class="col-6 area-info-plan-container">
+                    <img src="/images/areas/plan-1.jpg" />
+                </div>
+                <div class="col-6 area-photos-container d-flex flex-wrap justify-content-center">
+                    <div class="area-photo-container">
+                        <img class="area-photo" src="/images/areas/area-1.jpg" />
+                    </div>
+                    <div class="area-photo-container">
+                        <img class="area-photo" src="/images/areas/area-1.jpg" />
+                    </div>
+                    <div class="area-photo-container">
+                        <img class="area-photo" src="/images/areas/area-1.jpg" />
+                    </div>
+                    <div class="area-photo-container">
+                        <img class="area-photo" src="/images/areas/area-1.jpg" />
+                    </div>
+                    <div class="area-photo-container">
+                        <img class="area-photo" src="/images/areas/area-1.jpg" />
+                    </div>
+                    <div class="area-photo-container">
+                        <img class="area-photo" src="/images/areas/area-1.jpg" />
+                    </div>
+                </div>
+            </div>
+            <div class="area-info-data-container mt-4">
+                <div class="area-info-data-title mb-2">
+                    Информация
+                </div>
+                <div class="area-info-data">
+                    <div class="row">
+                        <div class="col-3">
+                            Площадь:
+                        </div>
+                        <div class="col">
+                            120 м
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            Кондиционер:
+                        </div>
+                        <div class="col">
+                            есть
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            Количество окон:
+                        </div>
+                        <div class="col">
+                            4
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            Количество входов:
+                        </div>
+                        <div class="col">
+                            2
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </div>
 
 @code {
     private int selectedFloor = 1;
     private const int floorsCount = 5;
     private bool isLoading = true;
+    private bool isAreaInfoShowed = false;
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
         await LoadMapData();
-        HideLoading();        
+        HideLoading();
     }
 
     private void ChangeFloor(int floor)
@@ -179,7 +205,7 @@
 
     private async Task LoadMapData()
     {
-        await Task.Delay(3000);        
+        await Task.Delay(3000);
     }
 
     private void HideLoading()
@@ -187,4 +213,13 @@
         isLoading = false;
     }
 
+    private void HideAreaInfo()
+    {
+        isAreaInfoShowed = false;
+    }
+
+    private async Task ShowAreaInfo(int areaId)
+    {
+        isAreaInfoShowed = true;
+    }
 }

@@ -32,6 +32,36 @@
 }
 
 .area-photos-container{
-    height: 400px;
+    height: 260px;
     overflow-y: scroll;
+}
+
+.area-info-container{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: white;
+    z-index: 999;
+}
+
+.area-info-data-title {
+    font-size: 20px;
+    background-color: #EAEAEA;
+    padding: 5px 10px;
+}
+
+.area-info-data{
+    padding: 0px 10px;    
+}
+
+.close-btn{
+    background: none;
+    border: none;
+    font-size: 40px;
+}
+
+.area-info-plan-container{
+    padding-left: 50px;
 }
