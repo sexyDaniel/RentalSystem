@@ -65,3 +65,24 @@
 .area-info-plan-container{
     padding-left: 50px;
 }
+
+nav.carousel:hover {
+    cursor: default;
+}
+
+input[type=radio]{
+    margin: 5px 0px;
+    cursor: pointer;
+}
+
+.not-available-area {
+    fill: #CACACA !important;
+    cursor: default;
+}
+
+.selected-area{
+    stroke: lightgreen !important;
+    stroke-width: 10px;
+    stroke-linecap:square;
+    fill: green !important;
+}
