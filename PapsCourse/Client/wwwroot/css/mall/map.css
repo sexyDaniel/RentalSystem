@@ -86,3 +86,21 @@ input[type=radio]{
     stroke-linecap:square;
     fill: green !important;
 }
+
+.rentLink {
+    position: fixed;
+    color: white;
+    background-color: rebeccapurple;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 20px;
+    right: 80px;
+    bottom: 80px;
+    border: 1px solid rebeccapurple;
+}
+
+.rentLink:hover {
+    color: rebeccapurple;
+    background-color: white;
+    text-decoration: none;        
+}
