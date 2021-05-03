@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PapsCourse.Server.Models;
-using PapsCourse.Shared.Models;
+using PapsCourse.Shared.Models.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;

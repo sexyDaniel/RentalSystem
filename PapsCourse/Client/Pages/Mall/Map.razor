@@ -1,5 +1,7 @@
 ﻿@page "/map"
 @using System.ComponentModel.DataAnnotations
+@inject PapsCourse.Client.Services.Abstract.IAccountSession Session
+
 <link href="/css/mall/map.css" type="text/css" rel="stylesheet" />
 <link href="/css/loading.css" type="text/css" rel="stylesheet" />
 
@@ -232,54 +234,61 @@
                     </div>
                 </div>
             </div>
-            <a href="/rentArea/@(openedAreaId)" class="rentLink">Арендовать</a>
+            @if (Session.IsAuthenticated && bool.Parse(Session.GetValue("isAdmin")))
+            {
+                <a href="/admin/area/edit/@(openedAreaId)" class="rentLink">Редактировать</a>                             
+            }
+            else
+            {
+                <a href="/rentArea/@(openedAreaId)" class="rentLink">Арендовать</a>
+            }              
         </div>
      }
 </div>
 
-       @code {
-           private int selectedFloor = 1;
-           private const int floorsCount = 5;
-           private bool isLoading = true;
-           private bool isAreaInfoShowed = false;
-           private int selectedAreaInfoView = 0;
-           private int openedAreaId = 0;
+@code {
+    private int selectedFloor = 1;
+    private const int floorsCount = 5;
+    private bool isLoading = true;
+    private bool isAreaInfoShowed = false;
+    private int selectedAreaInfoView = 0;
+    private int openedAreaId = 0;
 
-           protected override async Task OnInitializedAsync()
-           {
-               await base.OnInitializedAsync();
-               await LoadMapData();
-               HideLoading();
-           }
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await LoadMapData();
+        HideLoading();
+    }
 
-           private void ChangeFloor(int floor)
-           {
-               selectedFloor = floor;
-           }
+    private void ChangeFloor(int floor)
+    {
+        selectedFloor = floor;
+    }
 
-           private async Task LoadMapData()
-           {
-               await Task.Delay(3000);
-           }
+    private async Task LoadMapData()
+    {
+        await Task.Delay(3000);
+    }
 
-           private void HideLoading()
-           {
-               isLoading = false;
-           }
+    private void HideLoading()
+    {
+        isLoading = false;
+    }
 
-           private void HideAreaInfo()
-           {
-               isAreaInfoShowed = false;
-           }
+    private void HideAreaInfo()
+    {
+        isAreaInfoShowed = false;
+    }
 
-           private async Task ShowAreaInfo(int areaId)
-           {
-               isAreaInfoShowed = true;
-               openedAreaId = areaId;
-           }
+    private async Task ShowAreaInfo(int areaId)
+    {
+        isAreaInfoShowed = true;
+        openedAreaId = areaId;
+    }
 
-           void SelectAreaInfoViewSelection(ChangeEventArgs args)
-           {
-               selectedAreaInfoView = int.Parse(args.Value.ToString());
-           }
-       }
+    void SelectAreaInfoViewSelection(ChangeEventArgs args)
+    {
+        selectedAreaInfoView = int.Parse(args.Value.ToString());
+    }
+}

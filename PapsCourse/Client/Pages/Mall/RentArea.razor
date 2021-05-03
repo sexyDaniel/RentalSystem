@@ -1,7 +1,9 @@
 ﻿@page "/rentArea/{AreaId:int}"
-@using PapsCourse.Shared.Models.Area 
+@using PapsCourse.Shared.Models.Area
+@using Microsoft.AspNetCore.Authorization;
+@attribute [Authorize]
 
-<link href="/css/mall/rent.css" rel="stylesheet"  type="text/css"/>
+<link href="/css/mall/rent.css" rel="stylesheet" type="text/css" />
 
 <div class="request-container d-flex justify-content-center">
     <div class="row">
@@ -58,7 +60,7 @@
                 Категория
             </div>
             <select class="form-control" @bind="categoryId">
-                @foreach(var category in categories)
+                @foreach (var category in categories)
                 {
                     <option value="@category.Id">@category.Name</option>
                 }
@@ -70,10 +72,10 @@
             <div class="request-title mt-2 mb-1">
                 Сообщение (необязательно)
             </div>
-            <textarea class="request-input w-100 form-control" @bind="text"></textarea>            
+            <textarea class="request-input w-100 form-control" @bind="text"></textarea>
             <button class="send-request-btn d-block ml-auto mt-3" @onclick="SendRentRequestAsync">Отправить</button>
-        </div>        
-    </div>    
+        </div>
+    </div>
 </div>
 
 @code {
@@ -81,7 +83,7 @@
     public int AreaId { get; set; }
 
     private int storeId { get; set; }
-    private int categoryId { get;set; }
+    private int categoryId { get; set; }
     private int averageReciept { get; set; }
     private string text { get; set; }
 

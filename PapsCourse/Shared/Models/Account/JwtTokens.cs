@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PapsCourse.Shared.Models
+namespace PapsCourse.Shared.Models.Account
 {
     public class JwtTokens
     {

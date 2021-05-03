@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
 
-namespace PapsCourse.Shared
+namespace PapsCourse.Shared.Models
 {
     public class Response
     {
@@ -14,7 +12,7 @@ namespace PapsCourse.Shared
 
         public T GetData<T>()
         {
-            return JsonSerializer.Deserialize<T>(Data);
+            return JsonConvert.DeserializeObject<T>(Data);            
         }
     }
 }
