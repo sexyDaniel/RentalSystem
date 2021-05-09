@@ -1,0 +1,17 @@
+﻿#main-container {
+    height: calc(100vh - 56px);
+    background-image: url("/images//mall.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+#title {
+    position: absolute;
+    background-color: rgba(0,0,0,0.8);
+    color: white;    
+    padding: 20px 50px;
+    font-size: 40px;
+    right: 0px;
+    bottom: 80px;
+    padding-right: 150px;
+}
