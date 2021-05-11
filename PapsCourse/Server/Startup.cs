@@ -5,7 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PapsCourse.Server.Interfaces;
 using PapsCourse.Server.Models;
+using PapsCourse.Server.Models.Repositories;
 using System.Linq;
 
 namespace PapsCourse.Server
@@ -21,7 +23,7 @@ namespace PapsCourse.Server
 
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddDbContext<AppDbContext>(options=>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -49,7 +51,7 @@ namespace PapsCourse.Server
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
-                endpoints.MapFallbackToFile("index.html");
+                //endpoints.MapFallbackToFile("index.html");
             });
         }
     }

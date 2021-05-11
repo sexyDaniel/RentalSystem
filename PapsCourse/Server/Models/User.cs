@@ -15,5 +15,7 @@ namespace PapsCourse.Server.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Patronymic { get; set; }
+        public List<Store> Stores { get; set; } = new List<Store>();
+        public List<Feedback> Feedbacks { get; set; } = new List<Feedback>();
     }
 }
