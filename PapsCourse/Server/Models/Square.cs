@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,8 +9,7 @@ namespace PapsCourse.Server.Models
     public class Square
     {
         public int Id { get; set; }
-        public int StoreId { get; set; }
-        public Store Store { get; set; }
+        public int StoreId { get; set; } = 0;
         public double SquareValue { get; set; }
         public bool HasContioner { get; set; }
         public int EntriesCount { get; set; }

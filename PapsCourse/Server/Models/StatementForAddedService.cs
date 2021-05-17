@@ -15,6 +15,5 @@ namespace PapsCourse.Server.Models
         public DateTime Date { get; set; }
         public string Text { get; set; }
         public int AnswerStatementId { get; set; }
-        public AnswerStatement AnswerStatement { get; set; }
     }
 }

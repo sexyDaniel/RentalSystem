@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace PapsCourse.Server.Models
 {
-    public class AnswerStatement
+    public class Category
     {
         public int Id { get; set; }
-        public string Text { get; set; }
-        public bool IsSuccess { get; set; }
+        public string Name { get; set; }
+        public List<StatementForRent> StatementForRents { get; set; } = new List<StatementForRent>();
     }
 }

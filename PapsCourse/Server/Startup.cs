@@ -24,6 +24,9 @@ namespace PapsCourse.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IStatementRepository, StatementRepository>();
+            services.AddTransient<IStoreRepository, StoreRepository>();
+            services.AddTransient<ISquareRepository, SquareRepository>();
             services.AddDbContext<AppDbContext>(options=>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
             services.AddRazorPages();

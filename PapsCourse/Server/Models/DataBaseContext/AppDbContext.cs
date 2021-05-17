@@ -20,5 +20,7 @@ namespace PapsCourse.Server.Models
         public DbSet<StatementForAddedService> StatementForAddedServices { get; set; }
         public DbSet<StatementForRent> StatementForRents { get; set; }
         public DbSet<Store> Stores { get; set; }
+        public DbSet<Category> Categories { get; set; }
+
     }
 }
