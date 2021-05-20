@@ -1,0 +1,47 @@
+﻿.area-info-image{
+    display: block;
+    width: 100%;
+}
+
+.rent-container {     
+}
+
+.rent-container-title {
+    font-size: 25px;
+    background-color: rebeccapurple;
+    color: white;
+    padding: 5px 15px;
+}
+
+.area-info-title {
+    padding: 0px 10px;
+    background-color: #E1E1E1;
+    color: black;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.area-info-data {
+    padding: 0px 10px;
+}
+
+.send-request-btn {
+    background-color: rebeccapurple;
+    color: white;
+    padding: 5px 10px;
+    border: 1px solid rebeccapurple;    
+}
+
+.send-request-btn:hover{
+    color: rebeccapurple;
+    background-color: white;
+}
+
+.no-col-padding{
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+}
+
+.bl {
+    border-left: 4px solid rebeccapurple;
+}

@@ -10,6 +10,7 @@ namespace PapsCourse.Client.Services.Abstract
         bool IsAuthenticated { get; }
         void SetSession(string value);
         void Logout();
+        string GetValue(string key);
         event Action<string> OnAuthenticated;
         event Action OnLogout;
     }

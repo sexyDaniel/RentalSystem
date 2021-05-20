@@ -1,4 +1,5 @@
 ﻿using PapsCourse.Server.Models;
+using PapsCourse.Shared.Models.Area;
 using PapsCourse.Shared.Models.Requests;
 using System;
 using System.Collections.Generic;
@@ -11,5 +12,7 @@ namespace PapsCourse.Server.Interfaces
     {
         IQueryable<Square> Squares { get; }
         void Update(EditSquareRequest request);
+        List<Area> GetAreas();
+        Area GetAreaById(int id);
     }
 }

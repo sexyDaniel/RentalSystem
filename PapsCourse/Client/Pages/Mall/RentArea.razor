@@ -1,0 +1,152 @@
+﻿@page "/rentArea/{AreaId:int}"
+@using PapsCourse.Shared.Models.Area
+@using Microsoft.AspNetCore.Authorization;
+@inject HttpClient HttpClient
+@attribute [Authorize]
+
+<link href="/css/mall/rent.css" rel="stylesheet" type="text/css" />
+
+<div class="request-container d-flex justify-content-center">
+    <div class="row">
+        <div class="area-info rent-container col-4 p-0 shadow">
+            <div class="rent-container-title">
+                Площадь <span>#@AreaId</span>
+            </div>
+            <img src="/images/areas/plan-1.jpg" class="area-info-image p-4" />
+            <div class="area-info-title">
+                Площадь
+            </div>
+            <div class="area-info-data my-1">
+                @CurrentArea.Square
+            </div>
+            <div class="area-info-title">
+                Кондиционер
+            </div>
+            <div class="area-info-data my-1">
+                @if (CurrentArea.HasConditioner)
+                {
+                    <span>Есть</span>
+                }
+                else
+                {
+                    <span>нет</span>
+                }
+            </div>
+            <div class="area-info-title">
+                Кол-во входов
+            </div>
+            <div class="area-info-data my-1">
+                @CurrentArea.EntriesCount
+            </div>
+            <div class="area-info-title">
+                Кол-во окон
+            </div>
+            <div class="area-info-data my-1">
+                @CurrentArea.WindowsCount
+            </div>
+            <div class="area-info-title">
+                Цена
+            </div>
+            <div class="area-info-data my-1">
+                @CurrentArea.Price Р
+            </div>
+        </div>
+        <div class="request-form-container rent-container col shadow ml-4 px-4">
+            <div class="rent-container-title no-col-padding">
+                Оформите заявку на аренду
+            </div>
+            <div class="request-title mt-2 mb-1">
+                Магазин
+            </div>
+            <select class="form-control" @bind="storeId">
+                @foreach (var store in stores)
+                {
+                    <option value="@store.Id">@store.Name</option>
+                }
+            </select>
+            <div class="request-title mt-2 mb-1">
+                Категория
+            </div>
+            <select class="form-control" @bind="categoryId">
+                @foreach (var category in categories)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            </select>
+            <div class="request-title mt-2 mb-1">
+                Средний чек
+            </div>
+            <input type="text" class="request-input w-100 form-control" @bind="averageReciept" />
+            <div class="request-title mt-2 mb-1">
+                Сообщение (необязательно)
+            </div>
+            <textarea class="request-input w-100 form-control" @bind="text"></textarea>
+            <button class="send-request-btn d-block ml-auto mt-3" @onclick="SendRentRequestAsync">Отправить</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int AreaId { get; set; }
+
+    private int storeId { get; set; }
+    private int categoryId { get; set; }
+    private int averageReciept { get; set; }
+    private string text { get; set; }
+    private Area CurrentArea;
+
+    private List<Store> stores;
+    private List<Category> categories;
+
+    private void SendRentRequestAsync()
+    {
+        var request = new RentRequest()
+        {
+            StoreId = storeId,
+            CategoryId = categoryId,
+            AverageReciept = averageReciept,
+            Text = text
+        };
+
+        // send to the server
+    }
+    private async Task LoadData()
+    {
+        CurrentArea = await HttpClient.GetFromJsonAsync<Area>($"Square/GetAreaById/{AreaId}");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        // Load from the server
+        await LoadData();
+        stores = new List<Store>() {
+            new Store()
+            {
+                Id = 1,
+                Name = "Троечка"
+
+            },
+             new Store()
+            {
+                 Id = 2,
+                 Name = "Семерочка"
+            }
+    };
+
+        categories = new List<Category>() {
+            new Category()
+            {
+                Id = 1,
+                Name = "Бутик"
+
+            },
+             new Category()
+            {
+                 Id = 2,
+                 Name = "Фудкорт"
+            }
+        };
+    }
+}

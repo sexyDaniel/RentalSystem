@@ -1,14 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using Microsoft.AspNetCore.Http;
+﻿using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using PapsCourse.Server.Interfaces;
 using PapsCourse.Server.Models;
-using PapsCourse.Shared.Models;
+using PapsCourse.Shared.Models.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using PapsCourse.Server.Models.Services;
+using PapsCourse.Shared.Models;
 
 namespace PapsCourse.Server.Controllers
 {
@@ -63,7 +62,7 @@ namespace PapsCourse.Server.Controllers
                 var passwordHash = Convert.ToBase64String(CriptoService.Pbkdf2(request.Password, Convert.FromBase64String(user.Salt)));
                 if (passwordHash == user.PasswordHash)
                 {
-                    response.Data = JwtToken.GetToken(user);
+                    response.Data = JsonSerializer.Serialize(new JwtTokens {AccessToken= JwtToken.GetToken(user) });
                 }
                 else 
                 {

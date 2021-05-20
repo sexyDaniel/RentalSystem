@@ -1,4 +1,5 @@
 ﻿using PapsCourse.Server.Interfaces;
+using PapsCourse.Shared.Models.Area;
 using PapsCourse.Shared.Models.Requests;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,36 @@ namespace PapsCourse.Server.Models.Repositories
             this.context = context;
         }
         public IQueryable<Square> Squares => context.Squares;
+
+        public Area GetAreaById(int id)
+        {
+            var square = context.Squares.FirstOrDefault(s => s.Id == id);
+            if (square!=null)
+                return new Area {
+                    Id=square.Id,
+                    Price=square.SquarePrice,
+                    HasConditioner = square.HasContioner,
+                    HasToilet=square.HasToilet,
+                    EntriesCount=square.EntriesCount,
+                    WindowsCount=square.WindowsCount
+                };
+            return null;
+        }
+
+        public List<Area> GetAreas()
+        {
+            return context.Squares
+                .Select(s=>new Area 
+                {
+                    Id=s.Id,
+                    Square = s.SquareValue,
+                    Price = s.SquarePrice,
+                    HasConditioner = s.HasContioner,
+                    HasToilet = s.HasToilet,
+                    WindowsCount = s.WindowsCount,
+                    EntriesCount = s.EntriesCount
+                }).ToList();
+        }
 
         public void Update(EditSquareRequest request)
         {

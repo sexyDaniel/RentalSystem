@@ -1,0 +1,106 @@
+﻿.svg-element{    
+    pointer-events: all;
+}
+
+.darkred:hover {
+    fill: red !important;
+}
+
+.purple:hover {
+    fill: mediumpurple !important;
+}
+
+.green:hover {
+    fill: lightgreen !important;
+}
+
+.page-link{
+    cursor:pointer;
+}
+
+.floor{
+    height:500px;
+}
+
+.area-photo{
+    display: block;
+    width: 100%;
+}
+
+.area-photo-container{
+    width: 200px;
+}
+
+.area-photos-container{
+    height: 260px;
+    overflow-y: scroll;
+}
+
+.area-info-container{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: white;
+    z-index: 999;
+}
+
+.area-info-data-title {
+    font-size: 20px;
+    background-color: #EAEAEA;
+    padding: 5px 10px;
+}
+
+.area-info-data{
+    padding: 0px 10px;    
+}
+
+.close-btn{
+    background: none;
+    border: none;
+    font-size: 40px;
+}
+
+.area-info-plan-container{
+    padding-left: 50px;
+}
+
+nav.carousel:hover {
+    cursor: default;
+}
+
+input[type=radio]{
+    margin: 5px 0px;
+    cursor: pointer;
+}
+
+.not-available-area {
+    fill: #CACACA !important;
+    cursor: default;
+}
+
+.selected-area{
+    stroke: lightgreen !important;
+    stroke-width: 10px;
+    stroke-linecap:square;
+    fill: green !important;
+}
+
+.rentLink {
+    position: fixed;
+    color: white;
+    background-color: rebeccapurple;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 20px;
+    right: 80px;
+    bottom: 80px;
+    border: 1px solid rebeccapurple;
+}
+
+.rentLink:hover {
+    color: rebeccapurple;
+    background-color: white;
+    text-decoration: none;        
+}

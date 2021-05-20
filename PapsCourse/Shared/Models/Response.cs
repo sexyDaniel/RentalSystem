@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Text.Json;
 
 namespace PapsCourse.Shared.Models
 {
@@ -13,7 +12,7 @@ namespace PapsCourse.Shared.Models
 
         public T GetData<T>()
         {
-            return JsonSerializer.Deserialize<T>(Data);
+            return JsonConvert.DeserializeObject<T>(Data);            
         }
     }
 }

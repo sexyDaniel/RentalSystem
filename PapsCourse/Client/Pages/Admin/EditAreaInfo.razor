@@ -1,0 +1,102 @@
+﻿@page "/admin/area/edit/{AreaId:int}"
+@using PapsCourse.Shared.Models.Area; 
+@using PapsCourse.Client.Attributes
+@attribute [Admin]
+
+<link  href="/css/admin/editAreaInfo.css" type="text/css" rel="stylesheet"/>
+
+<div class="edit-info-container px-4 w-75 pb-5">
+    <h2 class="mb-5">Редактирование информации о торговой площади</h2>    
+    <div class="">
+        <div class="row my-2">
+            <div class="col-4">
+                Id:
+            </div>
+            <div class="col-8">
+                <input class="form-control" type="text" value="#@(AreaId)" readonly="readonly" />
+            </div>
+        </div>
+        <div class="row my-5">
+            <div class="col-4">
+                Изображение плана
+            </div>
+            <div class="col-8">
+                <img src="/images/areas/plan-1.jpg" />
+                <button class="ml-4">Сменить</button>
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col-4">
+                Площадь:
+            </div>
+            <div class="col-8">
+                <input class="form-control" type="number" @bind="Area.Square" />
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col-4">
+                Наличие кондиционера
+            </div>
+            <div class="col-8">
+                <input class="form-control w-auto" type="checkbox" @bind="Area.HasConditioner" />
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col-4">
+                Наличие туалета
+            </div>
+            <div class="col-8">
+                <input class="form-control w-auto" type="checkbox" @bind="Area.HasToilet" />
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col-4">
+                Кол-во входов
+            </div>
+            <div class="col-8">
+                <input class="form-control" type="number" @bind="Area.EntriesCount" />
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col-4">
+                Кол-во окон
+            </div>
+            <div class="col-8">
+                <input class="form-control" type="number" @bind="Area.WindowsCount" />
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col-4">
+                Стоимость
+            </div>
+            <div class="col-8">
+                <input class="form-control" type="number" @bind="Area.Price" />
+            </div>
+        </div>
+        <button @onclick="SaveAreaInfoAsync" class="mt-4 d-block ml-auto">Сохранить</button>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int AreaId { get; set; }
+
+    private Area Area;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Area = await LoadAreaAsync();
+    }
+
+    private async Task<Area> LoadAreaAsync()
+    {
+        // load from the server
+        return new Area() { EntriesCount = 3, HasConditioner = true, HasToilet = false, PlanImage = "/aa", Price = 10.5, Square = 1000.5, WindowsCount = 201, Id = 4082 };
+    }
+
+    private async Task SaveAreaInfoAsync()
+    {
+        // send to the server
+        Console.WriteLine(Area.HasConditioner);
+    }
+}

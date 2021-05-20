@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace PapsCourse.Shared.Account
+namespace PapsCourse.Shared.Models.Account
 {
     public class JwtTokens
     {
