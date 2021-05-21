@@ -23,6 +23,7 @@ namespace PapsCourse.Server.Models.Repositories
             if (square!=null)
                 return new Area {
                     Id=square.Id,
+                    Square = square.SquareValue,
                     Price=square.SquarePrice,
                     HasConditioner = square.HasContioner,
                     HasToilet=square.HasToilet,
