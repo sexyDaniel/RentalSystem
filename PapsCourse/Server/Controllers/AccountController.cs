@@ -19,7 +19,7 @@ namespace PapsCourse.Server.Controllers
         private IUserRepository userRepository;
         public AccountController(IUserRepository userRepository)
         {
-            
+            this.userRepository = userRepository;
         }
 
         [HttpPost]

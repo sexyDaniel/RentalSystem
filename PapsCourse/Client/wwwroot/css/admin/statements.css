@@ -1,0 +1,20 @@
+﻿.statement-eye {
+    background-color: purple;    
+    color: white;
+    padding: 2px 10px;
+    border-radius: 10px;
+}
+
+.statement-eye:hover{
+    color: white;
+    background-color: purple;
+}
+
+.active {
+    cursor: pointer;
+}
+
+.non-active {
+    cursor: pointer;
+    color: lightgray;
+}
