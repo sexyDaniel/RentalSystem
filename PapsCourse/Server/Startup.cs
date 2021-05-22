@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using PapsCourse.Server.Interfaces;
 using PapsCourse.Server.Models;
 using PapsCourse.Server.Models.Repositories;
+using PapsCourse.Server.Repositories;
 using System.Linq;
 
 namespace PapsCourse.Server
@@ -27,6 +28,7 @@ namespace PapsCourse.Server
             services.AddTransient<IStatementRepository, StatementRepository>();
             services.AddTransient<IStoreRepository, StoreRepository>();
             services.AddTransient<ISquareRepository, SquareRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddDbContext<AppDbContext>(options=>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
             services.AddRazorPages();

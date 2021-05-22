@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace PapsCourse.Server.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class StoreController : ControllerBase
     {
@@ -21,13 +21,13 @@ namespace PapsCourse.Server.Controllers
             this.storeRepository = storeRepository;
         }
 
-        [HttpGet("getStores")]
-        public List<Store> GetStores() 
+        [HttpGet("getStores/{userId}")]
+        public List<Shared.Models.Area.Store> GetStoresById(int userId) 
         {
-            return storeRepository.Stores.ToList();
+            return storeRepository.GetStoresById(userId);
         }
 
-        [HttpPost("AddStore")]
+        [HttpPost("addStore")]
         public Response AddStore(StoreRequest request) 
         {
             var response = new Response() { Errors = new List<string>()};
@@ -64,10 +64,10 @@ namespace PapsCourse.Server.Controllers
         }
 
         private bool UniqueStoreName(StoreRequest request) =>
-            storeRepository.Stores.FirstOrDefault(s => s.Name == request.Name) == null;
+            storeRepository.GetStores().FirstOrDefault(s => s.Name == request.Name) == null;
 
 
         private bool UniqueStorePhone(StoreRequest request) =>
-            storeRepository.Stores.FirstOrDefault(s => s.Phone == request.Phone) == null;
+            storeRepository.GetStores().FirstOrDefault(s => s.Phone == request.Phone) == null;
     }
 }

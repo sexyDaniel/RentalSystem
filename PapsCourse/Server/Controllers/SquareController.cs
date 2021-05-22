@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace PapsCourse.Server.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class SquareController : ControllerBase
     {
@@ -33,7 +33,7 @@ namespace PapsCourse.Server.Controllers
             return squareRepository.GetAreaById(AreaId);
         }
 
-        [HttpPut("EditSquare")]
+        [HttpPut("editSquare")]
         public IActionResult EditSquare(EditSquareRequest request)
         {
             squareRepository.Update(request);

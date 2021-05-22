@@ -1,7 +1,9 @@
 ﻿@page "/rentArea/{AreaId:int}"
+@using PapsCourse.Shared.Models
 @using PapsCourse.Shared.Models.Area
 @using Microsoft.AspNetCore.Authorization;
 @inject HttpClient HttpClient
+@inject PapsCourse.Client.Services.Abstract.IAccountSession Session
 @attribute [Authorize]
 
 <link href="/css/mall/rent.css" rel="stylesheet" type="text/css" />
@@ -121,54 +123,30 @@
     private List<Store> stores;
     private List<Category> categories;
 
-    private void SendRentRequestAsync()
+    private async Task SendRentRequestAsync()
     {
         var request = new RentRequest()
         {
             StoreId = storeId,
             CategoryId = categoryId,
             AverageReciept = averageReciept,
-            Text = text
+            Text = text,
+            SquareId = AreaId
         };
+        var response = await HttpClient.PostAsJsonAsync("api/Statement/addStatementRent", request);
+        var result = await response.Content.ReadFromJsonAsync<Response>();
 
         // send to the server
     }
     private async Task LoadData()
     {
         CurrentArea = await HttpClient.GetFromJsonAsync<Area>($"Square/GetAreaById/{AreaId}");
+        categories = await HttpClient.GetFromJsonAsync<List<Category>>($"api/Category/getCategories");
+        stores = await HttpClient.GetFromJsonAsync<List<Store>>($"api/Store/getStores/{Session.GetValue("ID")}");
     }
 
     protected override async Task OnInitializedAsync()
     {
-        //await base.OnInitializedAsync();
-        // Load from the server
         await LoadData();
-        stores = new List<Store>() {
-            new Store()
-            {
-                Id = 1,
-                Name = "Троечка"
-
-            },
-             new Store()
-            {
-                 Id = 2,
-                 Name = "Семерочка"
-            }
-    };
-
-        categories = new List<Category>() {
-            new Category()
-            {
-                Id = 1,
-                Name = "Бутик"
-
-            },
-             new Category()
-            {
-                 Id = 2,
-                 Name = "Фудкорт"
-            }
-        };
     }
 }

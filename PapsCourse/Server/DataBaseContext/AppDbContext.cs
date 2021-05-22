@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PapsCourse.Server.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PapsCourse.Server.Models
+namespace PapsCourse.Server
 {
     public class AppDbContext:DbContext
     {

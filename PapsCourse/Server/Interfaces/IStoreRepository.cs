@@ -8,7 +8,8 @@ namespace PapsCourse.Server.Interfaces
 {
     public interface IStoreRepository
     {
-        IQueryable<Store> Stores { get; }
+        List<Store> GetStores();
+        List<Shared.Models.Area.Store> GetStoresById(int userId);
         void AddStore(Store store);
         void DeleteStore(int id);
     }

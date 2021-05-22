@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PapsCourse.Server.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class StatementController : ControllerBase
     {
@@ -32,7 +32,7 @@ namespace PapsCourse.Server.Controllers
             return statementRepository.StatementForAddedServices.ToList();
         }
 
-        [HttpPost("AddStatementRent")]
+        [HttpPost("addStatementRent")]
         public IActionResult AddStatementForRent(RentRequest request) 
         {
             statementRepository.AddStatementForRent(new StatementForRent { 
@@ -45,7 +45,7 @@ namespace PapsCourse.Server.Controllers
             return Ok();
         }
 
-        [HttpPost("AddStatementAddedService")]
+        [HttpPost("addStatementAddedService")]
         public IActionResult AddStatementAddedService(AddServiceRequest request)
         {
             statementRepository.AddStatementForAddedService(new StatementForAddedService
