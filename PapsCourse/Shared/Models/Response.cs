@@ -6,7 +6,7 @@ namespace PapsCourse.Shared.Models
 {
     public class Response
     {
-        public IReadOnlyList<string> Errors { get; set; }
+        public List<string> Errors { get; set; }
         public bool IsSuccessfull => Errors.Count == 0;
         public string Data { get; set; }
 

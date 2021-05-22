@@ -34,7 +34,9 @@ namespace PapsCourse.Server.Models
         private static ClaimsIdentity GetIdentity(User user)
         {
             var claims = new List<Claim> {
-                new Claim("Email",user.Email)
+                new Claim("Email",user.Email),
+                new Claim("ID",user.Id.ToString()),
+                new Claim("isAdmin",(user.Role=="Admin").ToString())
             };
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);

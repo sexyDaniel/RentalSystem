@@ -1,6 +1,7 @@
 ﻿@page "/rentArea/{AreaId:int}"
 @using PapsCourse.Shared.Models.Area
 @using Microsoft.AspNetCore.Authorization;
+@inject HttpClient HttpClient
 @attribute [Authorize]
 
 <link href="/css/mall/rent.css" rel="stylesheet" type="text/css" />
@@ -16,31 +17,51 @@
                 Площадь
             </div>
             <div class="area-info-data my-1">
-                100
+                @CurrentArea?.Square
             </div>
             <div class="area-info-title">
                 Кондиционер
             </div>
             <div class="area-info-data my-1">
-                Есть
+                @if (CurrentArea != null && CurrentArea.HasConditioner)
+                {
+                    <span>Есть</span>
+                }
+                else
+                {
+                    <span>нет</span>
+                }
+            </div>
+            <div class="area-info-title">
+                Туалет
+            </div>
+            <div class="area-info-data my-1">
+                @if (CurrentArea != null && CurrentArea.HasToilet)
+                {
+                    <span>Есть</span>
+                }
+                else
+                {
+                    <span>нет</span>
+                }
             </div>
             <div class="area-info-title">
                 Кол-во входов
             </div>
             <div class="area-info-data my-1">
-                3
+                @CurrentArea?.EntriesCount
             </div>
             <div class="area-info-title">
                 Кол-во окон
             </div>
             <div class="area-info-data my-1">
-                6
+                @CurrentArea?.WindowsCount
             </div>
             <div class="area-info-title">
                 Цена
             </div>
             <div class="area-info-data my-1">
-                6000 Р
+                @CurrentArea?.Price Р
             </div>
         </div>
         <div class="request-form-container rent-container col shadow ml-4 px-4">
@@ -50,21 +71,29 @@
             <div class="request-title mt-2 mb-1">
                 Магазин
             </div>
-            <select class="form-control" @bind="storeId">
-                @foreach (var store in stores)
-                {
-                    <option value="@store.Id">@store.Name</option>
-                }
-            </select>
+            @if (stores != null)
+            {
+                <select class="form-control" @bind="storeId">
+                    @foreach (var store in stores)
+                    {
+                        <option value="@store.Id">@store.Name</option>
+                    }
+                </select>
+            }
+
             <div class="request-title mt-2 mb-1">
                 Категория
             </div>
-            <select class="form-control" @bind="categoryId">
-                @foreach (var category in categories)
-                {
-                    <option value="@category.Id">@category.Name</option>
-                }
-            </select>
+
+            @if (categories != null)
+            {
+                <select class="form-control" @bind="categoryId">
+                    @foreach (var category in categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+            }
             <div class="request-title mt-2 mb-1">
                 Средний чек
             </div>
@@ -86,11 +115,12 @@
     private int categoryId { get; set; }
     private int averageReciept { get; set; }
     private string text { get; set; }
+    private Area CurrentArea { get; set; }
 
     private List<Store> stores;
     private List<Category> categories;
 
-    private async Task SendRentRequestAsync()
+    private void SendRentRequestAsync()
     {
         var request = new RentRequest()
         {
@@ -102,10 +132,16 @@
 
         // send to the server
     }
+    private async Task LoadData()
+    {
+        CurrentArea = await HttpClient.GetFromJsonAsync<Area>($"Square/GetAreaById/{AreaId}");
+    }
 
     protected override async Task OnInitializedAsync()
     {
+        //await base.OnInitializedAsync();
         // Load from the server
+        await LoadData();
         stores = new List<Store>() {
             new Store()
             {
@@ -118,7 +154,7 @@
                  Id = 2,
                  Name = "Семерочка"
             }
-        };
+    };
 
         categories = new List<Category>() {
             new Category()

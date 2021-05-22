@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PapsCourse.Server.Models;
 
 namespace PapsCourse.Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210516192048_delete_FK")]
+    partial class delete_FK
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -191,6 +193,9 @@ namespace PapsCourse.Server.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AnswerStatementId")
+                        .IsUnique();
+
                     b.HasIndex("ServiceId");
 
                     b.HasIndex("SquareId");
@@ -224,6 +229,9 @@ namespace PapsCourse.Server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AnswerStatementId")
+                        .IsUnique();
 
                     b.HasIndex("CategoryId");
 
@@ -288,9 +296,6 @@ namespace PapsCourse.Server.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Role")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Salt")
                         .HasColumnType("nvarchar(max)");
 
@@ -319,6 +324,12 @@ namespace PapsCourse.Server.Migrations
 
             modelBuilder.Entity("PapsCourse.Server.Models.StatementForAddedService", b =>
                 {
+                    b.HasOne("PapsCourse.Server.Models.AnswerStatement", "AnswerStatement")
+                        .WithOne("StatementForAddedService")
+                        .HasForeignKey("PapsCourse.Server.Models.StatementForAddedService", "AnswerStatementId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("PapsCourse.Server.Models.Service", "Service")
                         .WithMany("StatementForAddedServices")
                         .HasForeignKey("ServiceId")
@@ -334,6 +345,12 @@ namespace PapsCourse.Server.Migrations
 
             modelBuilder.Entity("PapsCourse.Server.Models.StatementForRent", b =>
                 {
+                    b.HasOne("PapsCourse.Server.Models.AnswerStatement", "AnswerStatement")
+                        .WithOne("StatementForRent")
+                        .HasForeignKey("PapsCourse.Server.Models.StatementForRent", "AnswerStatementId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("PapsCourse.Server.Models.Category", "Category")
                         .WithMany("StatementForRents")
                         .HasForeignKey("CategoryId")
