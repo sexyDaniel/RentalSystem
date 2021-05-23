@@ -10,6 +10,7 @@ namespace PapsCourse.Server.Models
         public int Id { get; set; }
         public int StoreId { get; set; }
         public Store Store { get; set; }
+        public DateTime Date { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
         public double AverageReciept { get; set; }
