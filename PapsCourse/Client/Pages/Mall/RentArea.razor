@@ -1,6 +1,5 @@
 ﻿@page "/rentArea/{AreaId:int}"
 @using PapsCourse.Shared.Models
-@using PapsCourse.Shared.Models.Area
 @using Microsoft.AspNetCore.Authorization;
 @inject HttpClient HttpClient
 @inject PapsCourse.Client.Services.Abstract.IAccountSession Session
@@ -63,7 +62,7 @@
                 Цена
             </div>
             <div class="area-info-data my-1">
-                @CurrentArea?.Price Р
+                @CurrentArea?.SquarePrice Р
             </div>
         </div>
         <div class="request-form-container rent-container col shadow ml-4 px-4">
@@ -125,7 +124,7 @@
 
     private async Task SendRentRequestAsync()
     {
-        var request = new RentRequest()
+        var request = new StatementForRent()
         {
             StoreId = storeId,
             CategoryId = categoryId,

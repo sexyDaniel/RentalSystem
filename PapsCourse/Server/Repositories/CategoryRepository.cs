@@ -1,7 +1,7 @@
 ﻿using PapsCourse.Server.Interfaces;
 using System;
 using System.Collections.Generic;
-using PapsCourse.Shared.Models.Area;
+using PapsCourse.Shared.Models;
 using System.Linq;
 
 namespace PapsCourse.Server.Repositories
@@ -10,14 +10,14 @@ namespace PapsCourse.Server.Repositories
     {
         private AppDbContext context;
         public CategoryRepository(AppDbContext context) => this.context = context;
-        public void AddCategory(Shared.Models.Area.Category category)
+        public void AddCategory(Category category)
         {
             throw new NotImplementedException();
         }
 
         public List<Category> GetCategories()
         {
-            return context.Categories.Select(c=>new Category {Id=c.Id,Name=c.Name }).ToList();
+            return context.Categories.ToList();
         }
     }
 }

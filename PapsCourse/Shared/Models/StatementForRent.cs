@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace PapsCourse.Server.Models
+namespace PapsCourse.Shared.Models
 {
     public class StatementForRent
     {

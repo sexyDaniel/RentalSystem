@@ -1,5 +1,5 @@
 ﻿@page "/admin/area/edit/{AreaId:int}"
-@using PapsCourse.Shared.Models.Area; 
+@using PapsCourse.Shared.Models; 
 @using PapsCourse.Client.Attributes
 @attribute [Admin]
 
@@ -70,7 +70,7 @@
                 Стоимость
             </div>
             <div class="col-8">
-                <input class="form-control" type="number" @bind="Area.Price" />
+                <input class="form-control" type="number" @bind="Area.SquarePrice" />
             </div>
         </div>
         <button @onclick="SaveAreaInfoAsync" class="mt-4 d-block ml-auto">Сохранить</button>
@@ -91,7 +91,7 @@
     private async Task<Area> LoadAreaAsync()
     {
         // load from the server
-        return new Area() { EntriesCount = 3, HasConditioner = true, HasToilet = false, PlanImage = "/aa", Price = 10.5, Square = 1000.5, WindowsCount = 201, Id = 4082 };
+        return new Area() { EntriesCount = 3, HasConditioner = true, HasToilet = false, SquarePrice = 10.5, Square = 1000.5, WindowsCount = 201, Id = 4082 };
     }
 
     private async Task SaveAreaInfoAsync()

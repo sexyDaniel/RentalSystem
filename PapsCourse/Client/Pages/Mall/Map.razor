@@ -1,6 +1,6 @@
 ﻿@page "/map"
 @using System.ComponentModel.DataAnnotations
-@using PapsCourse.Shared.Models.Area
+@using PapsCourse.Shared.Models
 @inject HttpClient HttpClient
 @inject PapsCourse.Client.Services.Abstract.IAccountSession Session
 
@@ -246,7 +246,7 @@
                             Цена за кв м
                         </div>
                         <div class="col">
-                            @SelectedArea.Price
+                            @SelectedArea.SquarePrice
                         </div>
                     </div>
                 </div>

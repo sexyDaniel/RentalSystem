@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PapsCourse.Server.Interfaces;
-using PapsCourse.Server.Models;
+using PapsCourse.Shared.Models;
 using PapsCourse.Shared.Models.Requests;
 using System;
 using System.Collections.Generic;
@@ -23,13 +24,13 @@ namespace PapsCourse.Server.Controllers
         [HttpGet("GetStatementsForRent")]
         public List<StatementForRent> GetStatementForRents() 
         {
-            return statementRepository.StatementForRents.ToList();
+            return statementRepository.GetRentStatements().ToList();
         }
 
         [HttpGet("GetStatementsForAddedService")]
-        public List<StatementForAddedService> GetStatementForAddedService()
+        public string GetStatementForAddedService()
         {
-            return statementRepository.StatementForAddedServices.ToList();
+            return JsonConvert.SerializeObject(statementRepository.GetAddedStatements().ToList());
         }
 
         [HttpPost("addStatementRent")]

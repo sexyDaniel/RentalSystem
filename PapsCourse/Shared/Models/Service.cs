@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PapsCourse.Server.Models
+namespace PapsCourse.Shared.Models
 {
-    public class Category
+    public class Service
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<StatementForRent> StatementForRents { get; set; } = new List<StatementForRent>();
+        public List<StatementForAddedService> StatementForAddedServices { get; set; } = new List<StatementForAddedService>();
     }
 }

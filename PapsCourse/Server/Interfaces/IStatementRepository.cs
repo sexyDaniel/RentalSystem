@@ -1,4 +1,5 @@
 ﻿using PapsCourse.Server.Models;
+using PapsCourse.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,8 @@ namespace PapsCourse.Server.Interfaces
 {
     public interface IStatementRepository
     {
-        IQueryable<StatementForRent> StatementForRents { get; }
-        IQueryable<StatementForAddedService> StatementForAddedServices { get; }
+        List<StatementForRent> GetRentStatements();
+        List<StatementForAddedService> GetAddedStatements();
 
         void AddStatementForRent(StatementForRent statementForRent);
         void AddStatementForAddedService(StatementForAddedService statementForAddedService);

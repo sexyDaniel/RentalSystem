@@ -4,14 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PapsCourse.Server.Models
+namespace PapsCourse.Shared.Models
 {
     public class Area
     {
         public int Id { get; set; }
         public int StoreId { get; set; } = 0;
         public double Square { get; set; }
-        public bool HasContioner { get; set; }
+        public bool HasConditioner { get; set; }
         public int EntriesCount { get; set; }
         public int WindowsCount { get; set; }
         public double SquarePrice { get; set; }

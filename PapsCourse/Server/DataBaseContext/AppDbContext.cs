@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PapsCourse.Server.Models;
+using PapsCourse.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

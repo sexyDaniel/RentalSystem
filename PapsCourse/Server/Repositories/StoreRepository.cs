@@ -1,5 +1,5 @@
 ﻿using PapsCourse.Server.Interfaces;
-using PapsCourse.Server.Models;
+using PapsCourse.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,12 +36,11 @@ namespace PapsCourse.Server.Repositories
             return context.Stores.ToList();
         }
 
-        public List<Shared.Models.Area.Store> GetStoresById(int userId)
+        public List<Store> GetStoresById(int userId)
         {
-            return context.Stores.Where(s=>s.UserId==userId).Select(s=>new Shared.Models.Area.Store { 
-                Id=s.Id,
-                Name = s.Name
-            }).ToList();
+            return context.Stores
+                .Where(s=>s.UserId==userId)
+                .ToList();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace PapsCourse.Server.Models
+namespace PapsCourse.Shared.Models
 {
     public class Store
     {

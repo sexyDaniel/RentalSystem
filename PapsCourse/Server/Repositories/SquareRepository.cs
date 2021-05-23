@@ -1,5 +1,5 @@
 ﻿using PapsCourse.Server.Interfaces;
-using PapsCourse.Shared.Models.Area;
+using PapsCourse.Shared.Models;
 using PapsCourse.Shared.Models.Requests;
 using System;
 using System.Collections.Generic;
@@ -15,37 +15,18 @@ namespace PapsCourse.Server.Models.Repositories
         {
             this.context = context;
         }
-        public IQueryable<Area> Squares => context.Areas;
 
-        public Shared.Models.Area.Area GetAreaById(int id)
+        public Area GetAreaById(int id)
         {
             var square = context.Areas.FirstOrDefault(s => s.Id == id);
-            if (square!=null)
-                return new Shared.Models.Area.Area {
-                    Id=square.Id,
-                    Square = square.Square,
-                    Price=square.SquarePrice,
-                    HasConditioner = square.HasContioner,
-                    HasToilet=square.HasToilet,
-                    EntriesCount=square.EntriesCount,
-                    WindowsCount=square.WindowsCount
-                };
+            if (square != null)
+                return square;
             return null;
         }
 
-        public List<Shared.Models.Area.Area> GetAreas()
+        public List<Area> GetAreas()
         {
-            return context.Areas
-                .Select(s=>new Shared.Models.Area.Area 
-                {
-                    Id=s.Id,
-                    Square = s.Square,
-                    Price = s.SquarePrice,
-                    HasConditioner = s.HasContioner,
-                    HasToilet = s.HasToilet,
-                    WindowsCount = s.WindowsCount,
-                    EntriesCount = s.EntriesCount
-                }).ToList();
+            return context.Areas.ToList();
         }
 
         public void Update(EditSquareRequest request)
@@ -57,7 +38,7 @@ namespace PapsCourse.Server.Models.Repositories
                 editSquare.Square = request.SquareValue;
                 editSquare.WindowsCount = request.WindowsCount;
                 editSquare.EntriesCount = request.EntriesCount;
-                editSquare.HasContioner = request.HasContioner;
+                editSquare.HasConditioner = request.HasContioner;
                 editSquare.HasToilet = request.HasToilet;
                 context.SaveChanges();
             }

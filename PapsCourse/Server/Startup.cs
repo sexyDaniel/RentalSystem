@@ -1,12 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PapsCourse.Server.Interfaces;
-using PapsCourse.Server.Models;
 using PapsCourse.Server.Models.Repositories;
 using PapsCourse.Server.Repositories;
 using System.Linq;
@@ -30,6 +28,9 @@ namespace PapsCourse.Server
             services.AddTransient<ISquareRepository, SquareRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddDbContext<AppDbContext>(options=>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

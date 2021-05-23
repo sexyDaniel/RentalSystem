@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PapsCourse.Server.Interfaces;
-using PapsCourse.Server.Models;
 using PapsCourse.Shared.Models;
 using PapsCourse.Shared.Models.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace PapsCourse.Server.Controllers
 {
@@ -22,9 +20,15 @@ namespace PapsCourse.Server.Controllers
         }
 
         [HttpGet("getStores/{userId}")]
-        public List<Shared.Models.Area.Store> GetStoresById(int userId) 
+        public List<Store> GetStoresById(int userId) 
         {
             return storeRepository.GetStoresById(userId);
+        }
+
+        [HttpGet("getStores")]
+        public List<Store> GetStores()
+        {
+            return storeRepository.GetStores();
         }
 
         [HttpPost("addStore")]
