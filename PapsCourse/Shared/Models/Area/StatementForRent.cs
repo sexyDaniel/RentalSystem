@@ -16,5 +16,6 @@ namespace PapsCourse.Shared.Models.Area
         public int SquareId { get; set; }
         public string Text { get; set; }
         public int AnswerStatementId { get; set; }
+        public DateTime Date { get; set; }
     }
 }

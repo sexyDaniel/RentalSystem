@@ -17,9 +17,8 @@
         <div class="col-4">
             Дата подачи:
         </div>
-        <div class="col-8">
-            @*add date*@
-            <input class="form-control" type="text" @*@bind=""*@ readonly="readonly" />
+        <div class="col-8">            
+            <input class="form-control" type="text" @bind="@Statement.Date" readonly="readonly" />
         </div>
     </div>
     <div class="row my-2">
@@ -141,7 +140,8 @@
             {
                 Name = "Store"
             },
-            Text = "Help me"
+            Text = "Help me",
+            Date = DateTime.Now
         };
 
         if (Statement.AnswerStatementId == 0)
