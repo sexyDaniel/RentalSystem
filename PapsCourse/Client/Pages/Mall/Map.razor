@@ -288,7 +288,7 @@
     private async Task LoadMapData()
     {
         await Task.Delay(3000);
-        Areas = await HttpClient.GetFromJsonAsync<List<Area>>("Square/getSquares");
+        Areas = await HttpClient.GetFromJsonAsync<List<Area>>("api/Area/getAreas");
     }
 
     private void HideLoading()

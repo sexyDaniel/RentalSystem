@@ -140,9 +140,9 @@
     }
     private async Task LoadData()
     {
-        CurrentArea = await HttpClient.GetFromJsonAsync<Area>($"Square/GetAreaById/{AreaId}");
-        categories = await HttpClient.GetFromJsonAsync<List<Category>>($"api/Category/getCategories");
-        stores = await HttpClient.GetFromJsonAsync<List<Store>>($"api/Store/getStores/{Session.GetValue("ID")}");
+        //CurrentArea = await HttpClient.GetFromJsonAsync<Area>($"api/Area/getAreaById/{AreaId}");
+        //categories = await HttpClient.GetFromJsonAsync<List<Category>>($"api/Category/getCategories");
+        //stores = await HttpClient.GetFromJsonAsync<List<Store>>($"api/Store/getStores/{Session.GetValue("ID")}");
     }
 
     protected override async Task OnInitializedAsync()

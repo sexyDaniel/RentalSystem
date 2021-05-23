@@ -10,9 +10,9 @@ namespace PapsCourse.Server.Interfaces
 {
     public interface ISquareRepository
     {
-        IQueryable<Square> Squares { get; }
+        IQueryable<Models.Area> Squares { get; }
         void Update(EditSquareRequest request);
-        List<Area> GetAreas();
-        Area GetAreaById(int id);
+        List<Shared.Models.Area.Area> GetAreas();
+        Shared.Models.Area.Area GetAreaById(int id);
     }
 }

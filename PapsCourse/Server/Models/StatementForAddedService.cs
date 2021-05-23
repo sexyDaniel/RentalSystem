@@ -11,7 +11,7 @@ namespace PapsCourse.Server.Models
         public int ServiceId { get; set; }
         public Service Service { get; set; }
         public int SquareId { get; set; }
-        public Square Square { get; set; }
+        public Area Square { get; set; }
         public DateTime Date { get; set; }
         public string Text { get; set; }
         public int AnswerStatementId { get; set; }

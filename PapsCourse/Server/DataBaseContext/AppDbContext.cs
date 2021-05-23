@@ -17,7 +17,7 @@ namespace PapsCourse.Server
         public DbSet<History> Histories { get; set; }
         public DbSet<Queue> Queues { get; set; }
         public DbSet<Service> Services { get; set; }
-        public DbSet<Square> Squares { get; set; }
+        public DbSet<Area> Areas { get; set; }
         public DbSet<StatementForAddedService> StatementForAddedServices { get; set; }
         public DbSet<StatementForRent> StatementForRents { get; set; }
         public DbSet<Store> Stores { get; set; }

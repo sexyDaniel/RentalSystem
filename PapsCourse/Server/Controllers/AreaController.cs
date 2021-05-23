@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PapsCourse.Server.Interfaces;
-using PapsCourse.Server.Models;
 using PapsCourse.Shared.Models.Area;
 using PapsCourse.Shared.Models.Requests;
 using System;
@@ -13,27 +12,27 @@ namespace PapsCourse.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SquareController : ControllerBase
+    public class AreaController : ControllerBase
     {
         private ISquareRepository squareRepository;
-        public SquareController(ISquareRepository squareRepository) 
+        public AreaController(ISquareRepository squareRepository) 
         {
             this.squareRepository = squareRepository;
         }
 
-        [HttpGet("getSquares")]
+        [HttpGet("getAreas")]
         public List<Area> GetSquares() 
         {
             return squareRepository.GetAreas();
         }
 
-        [HttpGet("GetAreaById/{AreaId}")]
+        [HttpGet("getAreaById/{AreaId}")]
         public Area GetAreaById(int AreaId)
         {
             return squareRepository.GetAreaById(AreaId);
         }
 
-        [HttpPut("editSquare")]
+        [HttpPut("editArea")]
         public IActionResult EditSquare(EditSquareRequest request)
         {
             squareRepository.Update(request);
