@@ -1,6 +1,6 @@
 ﻿@page "/map"
 @using System.ComponentModel.DataAnnotations
-@using PapsCourse.Shared.Models
+@using PapsCourse.Shared.Models.Area
 @inject HttpClient HttpClient
 @inject PapsCourse.Client.Services.Abstract.IAccountSession Session
 
@@ -246,7 +246,7 @@
                             Цена за кв м
                         </div>
                         <div class="col">
-                            @SelectedArea.SquarePrice
+                            @SelectedArea.Price
                         </div>
                     </div>
                 </div>
@@ -269,8 +269,8 @@
     private bool isLoading = true;
     private bool isAreaInfoShowed = false;
     private int selectedAreaInfoView = 0;
-    private Area SelectedArea;
-    private List<Area> Areas;
+    private AreaResponse SelectedArea;
+    private List<AreaResponse> Areas;
     private int openedAreaId = 0;
 
     protected override async Task OnInitializedAsync()
@@ -288,7 +288,7 @@
     private async Task LoadMapData()
     {
         await Task.Delay(3000);
-        Areas = await HttpClient.GetFromJsonAsync<List<Area>>("api/Area/getAreas");
+        Areas = await HttpClient.GetFromJsonAsync<List<AreaResponse>>("api/Area/getAreas");
     }
 
     private void HideLoading()

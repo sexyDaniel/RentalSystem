@@ -1,5 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using PapsCourse.Shared.Models;
+using PapsCourse.Shared.DbModels;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;

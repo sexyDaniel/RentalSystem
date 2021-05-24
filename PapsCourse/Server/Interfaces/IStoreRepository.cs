@@ -1,4 +1,5 @@
-﻿using PapsCourse.Shared.Models;
+﻿using PapsCourse.Shared.DbModels;
+using PapsCourse.Shared.Models.Area;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,9 @@ namespace PapsCourse.Server.Interfaces
 {
     public interface IStoreRepository
     {
-        List<Store> GetStores();
-        List<Store> GetStoresById(int userId);
+        IQueryable<Shared.DbModels.Store> Stores { get; }
+        List<StoreResponse> GetStores();
+        List<StoreResponse> GetStoresById(int userId);
         void AddStore(Store store);
         void DeleteStore(int id);
     }

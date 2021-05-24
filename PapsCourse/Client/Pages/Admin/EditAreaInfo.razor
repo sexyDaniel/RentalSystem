@@ -1,5 +1,5 @@
 ﻿@page "/admin/area/edit/{AreaId:int}"
-@using PapsCourse.Shared.Models; 
+@using PapsCourse.Shared.Models.Area; 
 @using PapsCourse.Client.Attributes
 @attribute [Admin]
 
@@ -70,7 +70,7 @@
                 Стоимость
             </div>
             <div class="col-8">
-                <input class="form-control" type="number" @bind="Area.SquarePrice" />
+                <input class="form-control" type="number" @bind="Area.Price" />
             </div>
         </div>
         <button @onclick="SaveAreaInfoAsync" class="mt-4 d-block ml-auto">Сохранить</button>
@@ -81,17 +81,17 @@
     [Parameter]
     public int AreaId { get; set; }
 
-    private Area Area;
+    private AreaResponse Area;
 
     protected override async Task OnInitializedAsync()
     {
         Area = await LoadAreaAsync();
     }
 
-    private async Task<Area> LoadAreaAsync()
+    private async Task<AreaResponse> LoadAreaAsync()
     {
         // load from the server
-        return new Area() { EntriesCount = 3, HasConditioner = true, HasToilet = false, PlanImage = "/images/areas/plan-1.jpg", Price = 10.5, Square = 1000.5, WindowsCount = 201, Id = 4082 };
+        return new AreaResponse() { EntriesCount = 3, HasConditioner = true, HasToilet = false, PlanImage = "/images/areas/plan-1.jpg", Price = 10.5, Square = 1000.5, WindowsCount = 201, Id = 4082 };
     }
 
     private async Task SaveAreaInfoAsync()

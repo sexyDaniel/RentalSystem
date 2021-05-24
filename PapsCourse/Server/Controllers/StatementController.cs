@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PapsCourse.Server.Interfaces;
-using PapsCourse.Shared.Models;
+using PapsCourse.Shared.Models.Area;
 using PapsCourse.Shared.Models.Requests;
 using System;
 using System.Collections.Generic;
@@ -24,19 +24,31 @@ namespace PapsCourse.Server.Controllers
         [HttpGet("GetStatementsForRent")]
         public List<StatementForRent> GetStatementForRents() 
         {
-            return statementRepository.GetRentStatements().ToList();
+            return statementRepository.GetRentStatements();
+        }
+
+        [HttpGet("GetStatementsForRent/{StatementId}")]
+        public StatementForRent GetStatementForRents(int StatementId)
+        {
+            return statementRepository.GetRentStatmentById(StatementId);
+        }
+
+        [HttpGet("GetStatementsForAddedSevice/{StatementId}")]
+        public StatementForAddedService GetStatementsForAddedSevice(int StatementId)
+        {
+            return statementRepository.GetAddedStatmentById(StatementId);
         }
 
         [HttpGet("GetStatementsForAddedService")]
-        public string GetStatementForAddedService()
+        public List<StatementForAddedService> GetStatementsForAddedService()
         {
-            return JsonConvert.SerializeObject(statementRepository.GetAddedStatements().ToList());
+            return statementRepository.GetAddedStatements();
         }
 
         [HttpPost("addStatementRent")]
         public IActionResult AddStatementForRent(RentRequest request) 
         {
-            statementRepository.AddStatementForRent(new StatementForRent { 
+            statementRepository.AddStatementForRent(new Shared.DbModels.StatementForRent { 
                 Text=request.Text,
                 StoreId=request.StoreId,
                 CategoryId = request.CategoryId,
@@ -49,7 +61,7 @@ namespace PapsCourse.Server.Controllers
         [HttpPost("addStatementAddedService")]
         public IActionResult AddStatementAddedService(AddServiceRequest request)
         {
-            statementRepository.AddStatementForAddedService(new StatementForAddedService
+            statementRepository.AddStatementForAddedService(new Shared.DbModels.StatementForAddedService
             {
                 Text = request.Text,
                 SquareId = request.SquareId,

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PapsCourse.Server.Interfaces;
-using PapsCourse.Shared.Models;
+using PapsCourse.Shared.Models.Area;
 using PapsCourse.Shared.Models.Requests;
 using System;
 using System.Collections.Generic;
@@ -21,13 +21,13 @@ namespace PapsCourse.Server.Controllers
         }
 
         [HttpGet("getAreas")]
-        public List<Area> GetSquares() 
+        public List<AreaResponse> GetSquares() 
         {
             return squareRepository.GetAreas();
         }
 
         [HttpGet("getAreaById/{AreaId}")]
-        public Area GetAreaById(int AreaId)
+        public AreaResponse GetAreaById(int AreaId)
         {
             return squareRepository.GetAreaById(AreaId);
         }

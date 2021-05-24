@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PapsCourse.Server.Interfaces;
-using PapsCourse.Shared.Models;
+using PapsCourse.Shared.Models.Area;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +20,7 @@ namespace PapsCourse.Server.Controllers
         }
 
         [HttpGet("getCategories")]
-        public List<Category> GetCategories() 
+        public List<CategoryResponse> GetCategories() 
         {
             return repository.GetCategories();
         }

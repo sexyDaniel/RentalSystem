@@ -1,5 +1,5 @@
 ﻿@page "/rentArea/{AreaId:int}"
-@using PapsCourse.Shared.Models
+@using PapsCourse.Shared.Models.Area
 @using Microsoft.AspNetCore.Authorization;
 @inject HttpClient HttpClient
 @inject PapsCourse.Client.Services.Abstract.IAccountSession Session
@@ -62,7 +62,7 @@
                 Цена
             </div>
             <div class="area-info-data my-1">
-                @CurrentArea?.SquarePrice Р
+                @CurrentArea?.Price Р
             </div>
         </div>
         <div class="request-form-container rent-container col shadow ml-4 px-4">
@@ -116,10 +116,10 @@
     private int categoryId { get; set; }
     private int averageReciept { get; set; }
     private string text { get; set; }
-    private Area CurrentArea { get; set; }
+    private AreaResponse CurrentArea { get; set; }
 
-    private List<Store> stores;
-    private List<Category> categories;
+    private List<StoreResponse> stores;
+    private List<CategoryResponse> categories;
 
     private async Task SendRentRequestAsync()
     {
@@ -132,7 +132,7 @@
             SquareId = AreaId
         };
         var response = await HttpClient.PostAsJsonAsync("api/Statement/addStatementRent", request);
-        var result = await response.Content.ReadFromJsonAsync<Response>();
+        //var result = await response.Content.ReadFromJsonAsync<Response>();
 
         // send to the server
     }

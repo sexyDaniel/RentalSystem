@@ -1,5 +1,5 @@
 ﻿using PapsCourse.Server.Interfaces;
-using PapsCourse.Shared.Models;
+using PapsCourse.Shared.DbModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

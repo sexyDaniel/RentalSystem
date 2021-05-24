@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PapsCourse.Server.Interfaces;
+using PapsCourse.Shared.Models.Area;
 using PapsCourse.Shared.Models;
 using PapsCourse.Shared.Models.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using PapsCourse.Shared.DbModels;
 
 namespace PapsCourse.Server.Controllers
 {
@@ -20,13 +22,13 @@ namespace PapsCourse.Server.Controllers
         }
 
         [HttpGet("getStores/{userId}")]
-        public List<Store> GetStoresById(int userId) 
+        public List<StoreResponse> GetStoresById(int userId) 
         {
             return storeRepository.GetStoresById(userId);
         }
 
         [HttpGet("getStores")]
-        public List<Store> GetStores()
+        public List<StoreResponse> GetStores()
         {
             return storeRepository.GetStores();
         }
@@ -68,10 +70,10 @@ namespace PapsCourse.Server.Controllers
         }
 
         private bool UniqueStoreName(StoreRequest request) =>
-            storeRepository.GetStores().FirstOrDefault(s => s.Name == request.Name) == null;
+            storeRepository.Stores.FirstOrDefault(s => s.Name == request.Name) == null;
 
 
         private bool UniqueStorePhone(StoreRequest request) =>
-            storeRepository.GetStores().FirstOrDefault(s => s.Phone == request.Phone) == null;
+            storeRepository.Stores.FirstOrDefault(s => s.Phone == request.Phone) == null;
     }
 }

@@ -9,9 +9,9 @@ namespace PapsCourse.Shared.Models.Area
     {
         public int Id { get; set; }
         public int StoreId { get; set; }
-        public Store Store { get; set; }
+        public StoreResponse Store { get; set; }
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public CategoryResponse Category { get; set; }
         public double AverageReciept { get; set; }
         public int SquareId { get; set; }
         public string Text { get; set; }

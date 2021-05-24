@@ -11,7 +11,7 @@ namespace PapsCourse.Shared.Models.Area
         public int ServiceId { get; set; }
         public Service Service { get; set; }
         public int AreaId { get; set; }
-        public Area Area { get; set; }
+        public AreaResponse Area { get; set; }
         public DateTime Date { get; set; }
         public string Text { get; set; }
         public int AnswerStatementId { get; set; }

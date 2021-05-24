@@ -1,5 +1,6 @@
 ﻿using PapsCourse.Server.Interfaces;
-using PapsCourse.Shared.Models;
+using PapsCourse.Shared.DbModels;
+using PapsCourse.Shared.Models.Area;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace PapsCourse.Server.Repositories
         {
             this.context = context;
         }
+
+        public IQueryable<Store> Stores => context.Stores;
 
         public void AddStore(Store store)
         {
@@ -31,15 +34,16 @@ namespace PapsCourse.Server.Repositories
             }
         }
 
-        public List<Store> GetStores()
+        public List<StoreResponse> GetStores()
         {
-            return context.Stores.ToList();
+            return context.Stores.Select(s=>new StoreResponse { Id = s.Id,Name =s.Name}).ToList();
         }
 
-        public List<Store> GetStoresById(int userId)
+        public List<StoreResponse> GetStoresById(int userId)
         {
             return context.Stores
                 .Where(s=>s.UserId==userId)
+                .Select(s=>new StoreResponse { Id = s.Id,Name = s.Name})
                 .ToList();
         }
     }

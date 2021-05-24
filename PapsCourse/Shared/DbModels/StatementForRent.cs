@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace PapsCourse.Shared.Models
+namespace PapsCourse.Shared.DbModels
 {
     public class StatementForRent
     {

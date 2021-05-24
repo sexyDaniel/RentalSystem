@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PapsCourse.Server.Interfaces;
 using PapsCourse.Shared.Models;
+using PapsCourse.Shared.DbModels;
 using PapsCourse.Shared.Models.Account;
 using System;
 using System.Collections.Generic;
