@@ -1,0 +1,136 @@
+﻿@page "/admin/statements"
+@using PapsCourse.Client.Attributes
+@attribute [Admin]
+
+<link href="/css/admin/statements.css" rel="stylesheet" />
+<div class="mb-4">
+    <span class="h2 @(openedTabIndex==0?"active":"non-active")" @onclick="()=> { OpenTab(0); }">Заявки на аренду</span>
+    <span class="h2"> / </span>
+    <span class="h2 @(openedTabIndex==1?"active":"non-active")" @onclick="()=> { OpenTab(1); }">Заявки на услуги</span>
+</div>
+@switch (openedTabIndex)
+{
+    case 0:
+        <table class="table w-auto">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Площадь</th>
+                    <th scope="col">Магазин</th>
+                    <th scope="col">Дата подачи заявки</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>#2020</td>
+                    <td>Магнит</td>
+                    <td>20.05.2021</td>
+                    <td>
+                        <a href="/area/statements/rent/1" class="statement-eye">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>#2020</td>
+                    <td>Магнит</td>
+                    <td>20.05.2021</td>
+                    <td>
+                        <a href="#" class="statement-eye">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>#2020</td>
+                    <td>Магнит</td>
+                    <td>20.05.2021</td>
+                    <td>
+                        <a href="#" class="statement-eye">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        break;
+    case 1:
+        <table class="table w-auto">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Площадь</th>
+                    <th scope="col">Магазин</th>
+                    <th scope="col">Дата подачи заявки</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>#2020</td>
+                    <td>Пятчерочка</td>
+                    <td>20.05.2021</td>
+                    <td>
+                        <a href="/area/statements/service/1" class="statement-eye">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>#2020</td>
+                    <td>Магнит</td>
+                    <td>20.05.2021</td>
+                    <td>
+                        <a href="#" class="statement-eye">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>#2020</td>
+                    <td>Магнит</td>
+                    <td>20.05.2021</td>
+                    <td>
+                        <a href="#" class="statement-eye">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        break;
+}
+
+@code {
+    private int openedTabIndex = 0;
+
+    private void OpenTab(int index)
+    {
+        openedTabIndex = index;
+    }
+}

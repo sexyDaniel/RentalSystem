@@ -182,3 +182,11 @@ app {
         display: block;
     }
 }
+
+button {
+    color: white;
+    background-color: rebeccapurple;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid rebeccapurple;
+}

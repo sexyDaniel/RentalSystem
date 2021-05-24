@@ -21,8 +21,8 @@
                 Изображение плана
             </div>
             <div class="col-8">
-                <img src="/images/areas/plan-1.jpg" />
-                <button class="ml-4">Сменить</button>
+                <input type="text" @bind="@Area.PlanImage" class="mb-3"/>
+                <img src="@Area.PlanImage" />
             </div>
         </div>
         <div class="row my-2">
@@ -91,12 +91,12 @@
     private async Task<Area> LoadAreaAsync()
     {
         // load from the server
-        return new Area() { EntriesCount = 3, HasConditioner = true, HasToilet = false, SquarePrice = 10.5, Square = 1000.5, WindowsCount = 201, Id = 4082 };
+        return new Area() { EntriesCount = 3, HasConditioner = true, HasToilet = false, PlanImage = "/images/areas/plan-1.jpg", Price = 10.5, Square = 1000.5, WindowsCount = 201, Id = 4082 };
     }
 
     private async Task SaveAreaInfoAsync()
     {
         // send to the server
         Console.WriteLine(Area.HasConditioner);
-    }
+    }    
 }

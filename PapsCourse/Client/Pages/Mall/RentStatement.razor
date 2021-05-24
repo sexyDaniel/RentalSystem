@@ -1,0 +1,174 @@
+﻿@page "/area/statements/rent/{StatementId:int}"
+
+@using PapsCourse.Shared.Models.Area;
+@using PapsCourse.Shared.Models.Requests;
+@inject PapsCourse.Client.Services.Abstract.IAccountSession Session
+
+<div class="edit-info-container px-4 w-75 pb-5">
+    <h2 class="mb-5">Обращение на аренду #@StatementId</h2>
+    @if (Statement == null)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+<div class="">
+    <div class="row my-2">
+        <div class="col-4">
+            Дата подачи:
+        </div>
+        <div class="col-8">            
+            <input class="form-control" type="text" @bind="@Statement.Date" readonly="readonly" />
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-4">
+            Площадь:
+        </div>
+        <div class="col-8">
+            <input class="form-control" type="text" value="#@(Statement.SquareId)" readonly="readonly" />
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-4">
+            Магазин:
+        </div>
+        <div class="col-8">
+            <input class="form-control" @bind="Statement.Store.Name" readonly="readonly" />
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-4">
+            Средний рецепт
+        </div>
+        <div class="col-8">
+            <input class="form-control w-auto" @bind="Statement.AverageReciept" readonly="readonly" />
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-4">
+            Категория
+        </div>
+        <div class="col-8">
+            <input class="form-control w-auto" @bind="Statement.Category.Name" readonly="readonly" />
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-4">
+            Текст заявки
+        </div>
+        <div class="col-8">
+            <textarea class="form-control" @bind="Statement.Text" readonly="readonly"></textarea>
+        </div>
+    </div>
+    <h2 class="mt-4 mb-3">Ответ</h2>
+    @*or null*@
+    @if (Statement.AnswerStatementId == 0)
+    {
+        @if (bool.Parse(Session.GetValue("isAdmin")))
+        {
+            <div class="row my-2">
+                <div class="col-4">
+                    Удовлетворить
+                </div>
+                <div class="col-8">
+                    <input class="form-control w-auto" type="checkbox" @bind="AnswerRequest.IsSuccess" />
+                </div>
+            </div>
+            <div class="row my-2">
+                <div class="col-4">
+                    Текст ответа
+                </div>
+                <div class="col-8">
+                    <textarea class="form-control" @bind="AnswerRequest.Text"></textarea>
+                </div>
+            </div>
+            <button class="mt-4 d-block ml-auto" @onclick="SendAnswer">Ответить</button>
+        }
+        else
+        {
+            <p>Заявка находится на рассмотрении у администратора</p>
+        }
+    }
+    else
+    {
+        <div class="row my-2">
+            <div class="col-4">
+                Удовлетворено
+            </div>
+            <div class="col-8">
+                <input class="form-control w-auto" type="checkbox" @bind="Answer.IsSuccess" readonly="readonly" />
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col-4">
+                Текст ответа
+            </div>
+            <div class="col-8">
+                <textarea class="form-control" @bind="Answer.Text" readonly="readonly"></textarea>
+            </div>
+        </div>
+    }
+</div>
+    }
+</div>
+
+@code {
+
+    [Parameter]
+    public int StatementId { get; set; }
+
+    private StatementForRent Statement { get; set; }
+    private AnswerStatementRequest AnswerRequest { get; set; }
+    private AnswerStatement Answer { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        // load from server
+        Statement = new StatementForRent()
+        {
+            Id = 1,
+            SquareId = 1,
+            Store = new Store()
+            {
+                Name = "Magnit"
+            },
+            AnswerStatementId = 1,
+            AverageReciept = 120,
+            Category = new Category()
+            {
+                Name = "Store"
+            },
+            Text = "Help me",
+            Date = DateTime.Now
+        };
+
+        if (Statement.AnswerStatementId == 0)
+        {
+            AnswerRequest = new AnswerStatementRequest();
+        }
+        else
+        {
+            // load form server
+            Answer = new AnswerStatement()
+            {
+                IsSuccess = true,
+                Text = "Соглы, арендуй"
+            };
+        }
+    }
+
+    private async Task SendAnswer()
+    {
+        var answer = new AnswerStatementRequest()
+        {
+            StatementId = StatementId,
+            Text = "",
+            IsSuccess = true
+        };
+
+        // await send
+    }
+
+}
