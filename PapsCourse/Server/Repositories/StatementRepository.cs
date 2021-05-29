@@ -143,7 +143,20 @@ namespace PapsCourse.Server.Models.Repositories
 
         public List<TableServiceStatement> GetAddedStatementsByUserId(int userId)
         {
-            throw new NotImplementedException();
+            return context.StatementForAddedServices
+                .Join(context.Areas, s => s.SquareId, a => a.Id, (s, a) => new { Statement = s, Area = a })
+                .Join(context.Stores, lastJoin => lastJoin.Area.StoreId, s => s.Id, (lastJoin, s) => new { LastJoin = lastJoin, Store = s })
+                .Where(join=>join.Store.UserId==userId)
+                .Select(join => new TableServiceStatement
+                {
+                    Id = join.LastJoin.Statement.Id,
+                    Date = join.LastJoin.Statement.Date,
+                    Store = join.Store.Name,
+                    IsSuccessful = join.LastJoin.Statement.AnswerStatementId != 0,
+                    AreaId = join.LastJoin.Area.Id,
+                    Category = context.Services
+                               .FirstOrDefault(s => s.Id == join.LastJoin.Statement.ServiceId).Name
+                }).ToList();
         }
     }
 }
