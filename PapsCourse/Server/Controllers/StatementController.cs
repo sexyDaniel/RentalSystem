@@ -22,7 +22,7 @@ namespace PapsCourse.Server.Controllers
         }
 
         [HttpGet("GetStatementsForRent")]
-        public List<StatementForRent> GetStatementForRents() 
+        public List<TableRentStatement> GetStatementForRents() 
         {
             return statementRepository.GetRentStatements();
         }

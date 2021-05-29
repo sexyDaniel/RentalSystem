@@ -66,27 +66,17 @@ namespace PapsCourse.Server.Models.Repositories
             return GetRentStatementByOrder((s) => (s as Shared.DbModels.StatementForRent).Id == statementID);
         }
 
-        public List<StatementForRent> GetRentStatements()
+        public List<TableRentStatement> GetRentStatements()
         {
             return context.StatementForRents
-                .Select(statement => new StatementForRent
+                .Join(context.Stores, st => st.StoreId, s => s.Id, (st, s) => new { Statement = st, StoreName = s.Name })
+                .Select(join => new TableRentStatement
                 {
-                    Id = statement.Id,
-                    SquareId = statement.SquareId,
-                    CategoryId = statement.CategoryId,
-                    Category = context.Categories
-                            .Where(c => c.Id == statement.CategoryId)
-                            .Select(c => new CategoryResponse { Id = c.Id, Name = c.Name })
-                            .FirstOrDefault(c => c.Id == statement.CategoryId),
-                    StoreId = statement.StoreId,
-                    Store = context.Stores
-                            .Where(m => m.Id == statement.StoreId)
-                            .Select(m => new StoreResponse { Id = m.Id, Name = m.Name })
-                            .FirstOrDefault(m => m.Id == statement.StoreId),
-                    AnswerStatementId = statement.AnswerStatementId,
-                    AverageReciept = statement.AverageReciept,
-                    Date = statement.Date,
-                    Text = statement.Text
+                    Id = join.Statement.Id,
+                    Date = join.Statement.Date,
+                    Store = join.StoreName,
+                    IsSuccessful = join.Statement.AnswerStatementId != 0,
+                    AreaId = join.Statement.SquareId
                 }).ToList();
         }
 

@@ -11,7 +11,7 @@ namespace PapsCourse.Server.Interfaces
     {
         StatementForRent GetRentStatementsByUserId(int userId);
         StatementForAddedService GetAddedStatementsByUserId(int userId);
-        List<StatementForRent> GetRentStatements();
+        List<TableRentStatement> GetRentStatements();
         List<TableServiceStatement> GetAddedStatements();
         StatementForRent GetRentStatmentById(int statementID);
         StatementForAddedService GetAddedStatmentById(int statementID);
