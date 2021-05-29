@@ -8,6 +8,7 @@ namespace PapsCourse.Server.Interfaces
 {
     public interface IUserRepository
     {
+        User GetUserById(int userId);
         void Add(User user);
         void Delete(int id);
         void Update(User user);

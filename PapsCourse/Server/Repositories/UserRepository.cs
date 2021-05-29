@@ -47,5 +47,10 @@ namespace PapsCourse.Server.Models.Repositories
         {
             return context.Users.FirstOrDefault(u => u.Email == email);
         }
+
+        public User GetUserById(int userId)
+        {
+            return context.Users.FirstOrDefault(u=>u.Id==userId);
+        }
     }
 }

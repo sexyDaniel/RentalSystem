@@ -12,7 +12,7 @@ using PapsCourse.Server.Models;
 
 namespace PapsCourse.Server.Controllers
 {
-    [Route("[controller]/[action]")]
+    [Route("[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
@@ -23,7 +23,13 @@ namespace PapsCourse.Server.Controllers
             this.userRepository = userRepository;
         }
 
-        [HttpPost]
+        [HttpGet("getUser/{UserId}")]
+        public User GetUserById(int UserId) 
+        {
+            return userRepository.GetUserById(UserId);
+        }
+
+        [HttpPost("Registration")]
         public Response Registration([FromBody]RegistrationRequest registrationRequest) 
         {
             var response = new Response() { Errors = new List<string>()};
@@ -54,7 +60,7 @@ namespace PapsCourse.Server.Controllers
             return response;
         }
 
-        [HttpPost]
+        [HttpPost("Login")]
         public Response Login([FromBody]AutenticationRequest request) 
         {
             var response = new Response() { Errors = new List<string>() };
