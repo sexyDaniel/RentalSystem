@@ -18,3 +18,11 @@
     cursor: pointer;
     color: lightgray;
 }
+
+.success-statement {
+    background-color: rgba(0,255,0,0.3);
+}
+
+.not-success-statement {
+    background-color: rgba(255,0,0,0.3);
+}

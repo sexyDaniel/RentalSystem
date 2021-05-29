@@ -1,0 +1,173 @@
+﻿@page "/statements"
+@using Microsoft.AspNetCore.Authorization;
+@using PapsCourse.Shared.Models.Area;
+@attribute [Authorize]
+
+<link href="/css/admin/statements.css" rel="stylesheet" />
+<div class="mb-4">
+    <span class="h2 @(openedTabIndex==0?"active":"non-active")" @onclick="()=> { OpenTab(0); }">Заявки на аренду</span>
+    <span class="h2"> / </span>
+    <span class="h2 @(openedTabIndex==1?"active":"non-active")" @onclick="()=> { OpenTab(1); }">Заявки на услуги</span>
+</div>
+@switch (openedTabIndex)
+{
+    case 0:
+        <table class="table w-75">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Площадь</th>
+                    <th scope="col">Магазин</th>
+                    <th scope="col">Дата подачи заявки</th>
+                    <th scope="col">Ответ</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (RentStatements != null)
+                {
+                    @foreach (var statement in RentStatements)
+                    {
+                        <tr class="@(statement.IsSuccessful==true?"success-statement":statement.IsSuccessful==false?"not-success-statement":"")">
+                            <th scope="row">@statement.Id</th>                            
+                            <td>#@statement.AreaId</td>
+                            <td>@statement.Store</td>
+                            <td>@statement.Date.ToShortDateString()</td>
+                            <td>@(statement.IsSuccessful==true? "✔️" : statement.IsSuccessful==false? "❌" : "")</td>
+                            <td>
+                                <a href="/area/statements/rent/1" class="statement-eye">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        break;
+    case 1:
+        <table class="table w-75">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>                    
+                    <th scope="col">Площадь</th>
+                    <th scope="col">Магазин</th>
+                    <th scope="col">Категория</th>
+                    <th scope="col">Дата подачи заявки</th>
+                    <th scope="col">Ответ</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ServiceStatements != null)
+                {
+                    @foreach (var statement in ServiceStatements)
+                    {
+                        <tr class="@(statement.IsSuccessful==true?"success-statement":statement.IsSuccessful==false?"not-success-statement":"")">
+                            <th scope="row">@statement.Id</th>                            
+                            <td>#@statement.AreaId</td>
+                            <td>@statement.Store</td>
+                            <td>@statement.Category</td>
+                            <td>@statement.Date.ToShortDateString()</td>
+                            <td>@(statement.IsSuccessful==true? "✔️" : statement.IsSuccessful==false? "❌" : "")</td>
+                            <td>
+                                <a href="/area/statements/service/1" class="statement-eye">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        break;
+}
+
+@code {
+    private int openedTabIndex = 0;
+
+    private List<TableRentStatement> RentStatements;
+    private List<TableServiceStatement> ServiceStatements;
+
+    private void OpenTab(int index)
+    {
+        openedTabIndex = index;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        base.OnInitializedAsync();
+        await LoadStatements();
+    }
+
+    private async Task LoadStatements()
+    {
+        // if dmin - load everything
+        // if user - load only user's statements
+
+        RentStatements = new List<TableRentStatement>()
+        {
+            new TableRentStatement()
+            {
+                IsSuccessful = true,
+                Date = DateTime.Now,
+                Store = "Магнит",
+                Id = 2090,
+                AreaId = 1212
+            },
+            new TableRentStatement()
+            {
+                IsSuccessful = null,
+                Date = DateTime.Now,
+                Store = "Восьмерочка",
+                Id = 2090,
+                AreaId = 2091
+            },
+             new TableRentStatement()
+            {
+                IsSuccessful = false,
+                Date = DateTime.Now,
+                Store = "Газмяс",
+                Id = 2390,
+                AreaId = 2191
+            }
+        };
+
+        ServiceStatements = new List<TableServiceStatement>()
+        {
+            new TableServiceStatement()
+            {
+                Store = "Газмяс",
+                AreaId = 1212,
+                Category = "Клининг",
+                Date  = DateTime.Now,
+                Id = 1214,
+                IsSuccessful = true
+            },
+            new TableServiceStatement()
+            {
+                Store = "Магнит",
+                AreaId = 1212,
+                Category = "Ремонт",
+                Date  = DateTime.Now,
+                Id = 1814,
+                IsSuccessful = null
+            },
+            new TableServiceStatement()
+            {
+                Store = "Мухобойка",
+                AreaId = 1212,
+                Category = "Интим",
+                Date  = DateTime.Now,
+                Id = 1314,
+                IsSuccessful = false
+            }
+        };
+    }
+}
