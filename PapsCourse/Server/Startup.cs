@@ -24,6 +24,7 @@ namespace PapsCourse.Server
         {
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IAnswerRepository, AnswerRepository>();
+            services.AddTransient<IServiceRepository, ServiceRepository>();
             services.AddTransient<IStatementRepository, StatementRepository>();
             services.AddTransient<IStoreRepository, StoreRepository>();
             services.AddTransient<ISquareRepository, SquareRepository>();
