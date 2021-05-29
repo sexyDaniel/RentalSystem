@@ -104,12 +104,8 @@
                             <td>@area.Store</td>
                             <td>@area.RentBefore</td>
                             <td>
-                                <a href="/area/statements/rent/1" class="statement-eye">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
-                                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
-                                    </svg>
-                                </a>
+                                <a href="@($"/area/{area.Id}/service")">Запросить услугу</a>
+                                <a href="@($"/area/{area.Id}/pay")">Оплатить</a>
                             </td>
                         </tr>
                     }
@@ -121,8 +117,7 @@
     <div class="col-auto">
         <h3 class="mb-3">Действия</h3>
         <div class="d-flex flex-column">
-            <button class="my-1">Изменить данные</button>
-            <a href="/area/pay" class="my-1 button">Оплатить аренду</a>
+            <button class="my-1">Изменить данные</button>                        
             <a href="/store/registration" class="my-1 button">Зарегистрировать магазин</a>
             <a href="/map" class="my-1 button">Арендовать площадь</a>
         </div>

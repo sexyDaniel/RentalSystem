@@ -193,7 +193,7 @@ button,
     text-align: center;
 }
 
-button,
+button:hover,
 .button:hover{
     background-color: white;
     color:rebeccapurple;

@@ -1,0 +1,70 @@
+﻿@page "/area/{AreaId:int}/service"
+@using PapsCourse.Shared.Models.Area 
+
+<link href="/css/mall/rent.css" rel="stylesheet" type="text/css" />
+
+<div class="w-50 mx-auto request-container d-flex justify-content-center">
+    <div class="request-form-container rent-container col shadow ml-4 px-4">
+        <div class="rent-container-title no-col-padding mt-3">
+            Заявка на услугу
+        </div>
+        <div class="request-title mt-2 mb-1">
+            Площадь
+        </div>
+        <input type="text" class="request-input w-100 form-control" value="@AreaId" readonly="readonly" />
+        <div class="request-title mt-4 mb-1">
+            Тип услуги
+        </div>        
+            @if (services != null)
+            {
+                <select class="form-control" @bind="request.ServiceId">
+                    @foreach (var service in services)
+                    {
+                        <option value="@service.Id">@service.Name</option>
+                    }
+                </select>
+            }        
+        <div class="request-title mt-3 mb-1">
+            Дата выполнения
+        </div>
+        <input type="datetime" class="request-input w-100 form-control" @bind="request.Date" />        
+        <div class="request-title mt-2 mb-1">
+            Сообщение (необязательно)
+        </div>
+        <textarea class="request-input w-100 form-control" @bind="request.Text"></textarea>
+        <button class="send-request-btn d-block ml-auto mt-3 mb-4" @onclick="SendRequest">Отправить</button>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public int AreaId { get; set; }
+    private List<Service> services;
+
+    private ServiceRequest request = new ServiceRequest();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        services = new List<Service>()
+        {
+            new Service()
+            {
+                Name =  "Cleaning",
+                Id = 1
+
+            },
+            new Service()
+            {
+                Name =  "Repair",
+                Id = 2
+            }
+        };
+    }
+
+    private void SendRequest()
+    {
+
+    }
+}
