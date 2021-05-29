@@ -46,19 +46,9 @@ namespace PapsCourse.Server.Models.Repositories
                 }).ToList();
         }
 
-        public StatementForAddedService GetAddedStatementsByUserId(int userId)
-        {
-            throw new NotImplementedException();
-        }
-
         public StatementForAddedService GetAddedStatmentById(int statementID)
         {
             return GetAddedStatementByOrder((s) => (s as Shared.DbModels.StatementForAddedService).Id == statementID);
-        }
-
-        public StatementForRent GetRentStatementsByUserId(int userId)
-        {
-            throw new NotImplementedException();
         }
 
         public StatementForRent GetRentStatmentById(int statementID)
@@ -134,6 +124,26 @@ namespace PapsCourse.Server.Models.Repositories
                 Date = statement.Date,
                 Text = statement.Text
             };
+        }
+
+        public List<TableRentStatement> GetRentStatementsByUserId(int userId)
+        {
+            return context.StatementForRents
+                .Join(context.Stores, st => st.StoreId, s => s.Id, (st, s) => new { Statement = st, Store = s })
+                .Where(join=>join.Store.UserId==userId)
+                .Select(join => new TableRentStatement
+                {
+                    Id = join.Statement.Id,
+                    Date = join.Statement.Date,
+                    Store = join.Store.Name,
+                    IsSuccessful = join.Statement.AnswerStatementId != 0,
+                    AreaId = join.Statement.SquareId
+                }).ToList();
+        }
+
+        public List<TableServiceStatement> GetAddedStatementsByUserId(int userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

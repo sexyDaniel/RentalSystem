@@ -9,8 +9,8 @@ namespace PapsCourse.Server.Interfaces
 {
     public interface IStatementRepository
     {
-        StatementForRent GetRentStatementsByUserId(int userId);
-        StatementForAddedService GetAddedStatementsByUserId(int userId);
+        List<TableRentStatement> GetRentStatementsByUserId(int userId);
+        List<TableServiceStatement> GetAddedStatementsByUserId(int userId);
         List<TableRentStatement> GetRentStatements();
         List<TableServiceStatement> GetAddedStatements();
         StatementForRent GetRentStatmentById(int statementID);

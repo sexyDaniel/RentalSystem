@@ -33,6 +33,12 @@ namespace PapsCourse.Server.Controllers
             return statementRepository.GetRentStatmentById(StatementId);
         }
 
+        [HttpGet("GetRentStatements/{UserId}")]
+        public List<TableRentStatement> GetRentStatementByUserId(int UserId)
+        {
+            return statementRepository.GetRentStatementsByUserId(UserId);
+        }
+
         [HttpGet("GetStatementsForAddedSevice/{StatementId}")]
         public StatementForAddedService GetStatementsForAddedSevice(int StatementId)
         {
