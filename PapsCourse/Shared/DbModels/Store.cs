@@ -14,5 +14,6 @@ namespace PapsCourse.Shared.DbModels
         [MaxLength(11)]
         public string Phone { get; set; }
         public StatementForRent StatementForRent { get; set; }
+        public string Logo { get; set; }
     }
 }
