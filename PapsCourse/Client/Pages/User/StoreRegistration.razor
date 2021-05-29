@@ -1,0 +1,43 @@
+﻿@page "/store/registration" 
+@using PapsCourse.Shared.Models.Area
+ 
+<link href="/css/mall/rent.css" rel="stylesheet" type="text/css" />
+
+<div class="w-50 mx-auto request-container d-flex justify-content-center">
+    <div class="request-form-container rent-container col shadow ml-4 px-4">
+        <div class="rent-container-title no-col-padding mt-3">
+            Зарегистрируйте магазин
+        </div>
+        <div class="request-title mt-2 mb-1">
+            Название
+        </div>
+        <input type="text" class="request-input w-100 form-control" @bind="request.Name" />
+        <div class="request-title mt-4 mb-1">
+            Логотип
+        </div>
+        <img src="@request.Logo" alt="" class="my-3 mw-100"/>
+        <input type="text" class="request-input w-100 form-control" @bind="request.Logo" />
+        <div class="request-title mt-3 mb-1">
+            Время открытия
+        </div>
+        <input type="text" class="request-input w-100 form-control" @bind="request.StartTime" />
+        <div class="request-title mt-3 mb-1">
+            Время закрытия
+        </div>
+        <input type="text" class="request-input w-100 form-control" @bind="request.EndTime" />
+        <div class="request-title mt-3 mb-1">
+            Телефон
+        </div>
+        <input type="text" class="request-input w-100 form-control" @bind="request.Phone" />
+        <button class="send-request-btn d-block ml-auto mt-3 mb-4" @onclick="RegisterStore">Зарегистрировать</button>
+    </div>
+</div>
+
+@code {
+    private RegisterStoreRequest request = new RegisterStoreRequest();
+
+    private void RegisterStore()
+    {
+        // send to server
+    }
+}
