@@ -29,22 +29,20 @@ namespace PapsCourse.Server.Models.Repositories
             context.SaveChanges();
         }
 
-        public List<StatementForAddedService> GetAddedStatements()
+        public List<TableServiceStatement> GetAddedStatements()
         {
             return context.StatementForAddedServices
-                .Select(statement => new StatementForAddedService
+                .Join(context.Areas, s => s.SquareId, a => a.Id, (s, a) => new { Statement = s, AreaId = a.Id, StoreId = a.StoreId })
+                .Join(context.Stores, id => id.StoreId, s => s.Id, (id, s) => new { StoreName = s.Name, lastJoin = id })
+                .Select(join => new TableServiceStatement
                 {
-                    Id = statement.Id,
-                    ServiceId = statement.ServiceId,
-                    Service = context.Services
-                            .Where(s => s.Id == statement.ServiceId)
-                            .Select(s => new Service { Id = s.Id, Name = s.Name })
-                            .FirstOrDefault(s => s.Id == statement.ServiceId),
-                    Area = null,
-                    AreaId = statement.SquareId,
-                    AnswerStatementId = statement.AnswerStatementId,
-                    Date = statement.Date,
-                    Text = statement.Text
+                    Id = join.lastJoin.Statement.Id,
+                    Date = join.lastJoin.Statement.Date,
+                    Store = join.StoreName,
+                    IsSuccessful = join.lastJoin.Statement.AnswerStatementId != 0,
+                    AreaId = join.lastJoin.AreaId,
+                    Category = context.Services
+                               .FirstOrDefault(s => s.Id == join.lastJoin.Statement.ServiceId).Name
                 }).ToList();
         }
 

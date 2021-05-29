@@ -40,7 +40,7 @@ namespace PapsCourse.Server.Controllers
         }
 
         [HttpGet("GetStatementsForAddedService")]
-        public List<StatementForAddedService> GetStatementsForAddedService()
+        public List<TableServiceStatement> GetStatementsForAddedService()
         {
             return statementRepository.GetAddedStatements();
         }
