@@ -1,12 +1,14 @@
 ﻿@page "/cabinet"
 @using PapsCourse.Shared.DbModels
+@using PapsCourse.Shared.Models.Area
 
 <h1 class="mb-3">Личный кабинет</h1>
 <div class="row">
     <div class="col-8">
-        <h3>Информация об аккаунте</h3>
+        <h3 class="mb-3">Информация об аккаунте</h3>
         @if (user != null)
         {
+
             <div>
                 <div class="row">
                     <div class="col-4">
@@ -50,15 +52,79 @@
                 </div>
             </div>
         }
+        <h3 class="mt-4 mb-3">Зарегистрированные магазины</h3>
+        @if (stores != null)
+        {
+            <table class="table w-75">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Название</th>
+                        <th scope="col">Часы работы</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var store in stores)
+                    {
+                        <tr class="">
+                            <th scope="row">@store.Id</th>
+                            <td>@store.Name</td>
+                            <td>@(store.StartTime +"-"+store.EndTime)</td>
+                            <td>
+                                <a href="/area/statements/rent/1" class="statement-eye">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+            </table>            
+        }
+        <h3 class="mt-4 mb-3">Арендуемые площади</h3>
+        @if (areas != null)
+        {
+            <table class="table w-75">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Магазин</th>
+                        <th scope="col">До</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var area in areas)
+                    {
+                        <tr class="">
+                            <th scope="row">@area.Id</th>
+                            <td>@area.Store</td>
+                            <td>@area.RentBefore</td>
+                            <td>
+                                <a href="/area/statements/rent/1" class="statement-eye">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+            </table>            
+        }
 
     </div>
-    <div class="col-4">
-        <h3>Действия</h3>
+    <div class="col-auto">
+        <h3 class="mb-3">Действия</h3>
         <div class="d-flex flex-column">
             <button class="my-1">Изменить данные</button>
-            <button class="my-1">Оплатить аренду</button>
-            <button class="my-1">Зарегистрировать магазин</button>
-            <button class="my-1">Арендовать площадь</button>
+            <a href="/area/pay" class="my-1 button">Оплатить аренду</a>
+            <a href="/store/registration" class="my-1 button">Зарегистрировать магазин</a>
+            <a href="/map" class="my-1 button">Арендовать площадь</a>
         </div>
     </div>
 </div>
@@ -66,6 +132,8 @@
 @code {
 
     private User user;
+    private List<Store> stores;
+    private List<UserArea> areas;
 
     protected override async Task OnInitializedAsync()
     {
@@ -77,6 +145,30 @@
             LastName = "lastname",
             Patronymic = "daunich",
             Phone = "0-0"
+        };
+
+        stores = new List<Store>()
+        {
+            new Store()
+            {
+                Name = "Magnat",
+                Id = 4080
+            },
+            new Store()
+            {
+                Name = "5-ka",
+                Id = 4080
+            }
+        };
+
+        areas = new List<UserArea>()
+        {
+            new UserArea()
+            {
+                Id = 2020,
+                Store = "Magnit",
+                RentBefore = DateTime.Now
+            }
         };
     }
 }
