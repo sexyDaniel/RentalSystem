@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PapsCourse.Shared.Models.Area
 {
-    public class StatementForRent
+    public class StatementForRentResponse
     {
         public int Id { get; set; }
         public int StoreId { get; set; }

@@ -32,8 +32,14 @@ namespace PapsCourse.Server.Controllers
             return squareRepository.GetAreaById(AreaId);
         }
 
+        [HttpGet("getAreasByUserId/{UserId}")]
+        public List<UserArea> GetAreasByUserId(int UserId)
+        {
+            return squareRepository.GetAreasByUserId(UserId);
+        }
+
         [HttpPut("editArea")]
-        public IActionResult EditSquare(EditSquareRequest request)
+        public IActionResult EditSquare(AreaResponse request)
         {
             squareRepository.Update(request);
             return Ok();

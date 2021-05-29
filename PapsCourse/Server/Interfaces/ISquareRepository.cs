@@ -9,8 +9,10 @@ namespace PapsCourse.Server.Interfaces
 {
     public interface ISquareRepository
     {
-        void Update(EditSquareRequest request);
+        void Update(AreaResponse request);
         List<AreaResponse> GetAreas();
         AreaResponse GetAreaById(int id);
+
+        List<UserArea> GetAreasByUserId(int userId);
     }
 }

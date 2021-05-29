@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PapsCourse.Server;
 
 namespace PapsCourse.Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210529183131_list")]
+    partial class list
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,9 +54,6 @@ namespace PapsCourse.Server.Migrations
 
                     b.Property<bool>("HasToilet")
                         .HasColumnType("bit");
-
-                    b.Property<string>("PlanImage")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Square")
                         .HasColumnType("float");

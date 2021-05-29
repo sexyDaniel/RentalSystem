@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PapsCourse.Server.Interfaces;
+using PapsCourse.Shared.DbModels;
 using PapsCourse.Shared.Models.Area;
 using System;
 using System.Collections.Generic;
@@ -39,19 +40,19 @@ namespace PapsCourse.Server.Models.Repositories
                     Id = join.lastJoin.Statement.Id,
                     Date = join.lastJoin.Statement.Date,
                     Store = join.StoreName,
-                    IsSuccessful = join.lastJoin.Statement.AnswerStatementId != 0,
+                    IsSuccessful = join.lastJoin.Statement.AnswerStatementId == 0 ? null : (bool?)(context.AnswerStatements.FirstOrDefault(a => a.Id == join.lastJoin.Statement.AnswerStatementId).IsSuccess),
                     AreaId = join.lastJoin.AreaId,
                     Category = context.Services
                                .FirstOrDefault(s => s.Id == join.lastJoin.Statement.ServiceId).Name
                 }).ToList();
         }
 
-        public StatementForAddedService GetAddedStatmentById(int statementID)
+        public StatementForAddedServiceResponse GetAddedStatmentById(int statementID)
         {
             return GetAddedStatementByOrder((s) => (s as Shared.DbModels.StatementForAddedService).Id == statementID);
         }
 
-        public StatementForRent GetRentStatmentById(int statementID)
+        public StatementForRentResponse GetRentStatmentById(int statementID)
         {
             return GetRentStatementByOrder((s) => (s as Shared.DbModels.StatementForRent).Id == statementID);
         }
@@ -65,17 +66,17 @@ namespace PapsCourse.Server.Models.Repositories
                     Id = join.Statement.Id,
                     Date = join.Statement.Date,
                     Store = join.StoreName,
-                    IsSuccessful = join.Statement.AnswerStatementId != 0,
+                    IsSuccessful = join.Statement.AnswerStatementId == 0? null: (bool?)(context.AnswerStatements.FirstOrDefault(a=>a.Id== join.Statement.AnswerStatementId).IsSuccess),
                     AreaId = join.Statement.SquareId
                 }).ToList();
         }
 
-        private StatementForRent GetRentStatementByOrder(Operation expression) 
+        private StatementForRentResponse GetRentStatementByOrder(Operation expression) 
         {
             var statement = context.StatementForRents.ToList().FirstOrDefault(s => expression(s));
             if (statement != null)
             {
-                return new StatementForRent
+                return new StatementForRentResponse
                 {
                     Id = statement.Id,
                     SquareId = statement.SquareId,
@@ -98,7 +99,7 @@ namespace PapsCourse.Server.Models.Repositories
             return null;
         }
 
-        private StatementForAddedService GetAddedStatementByOrder(Operation expression)
+        private StatementForAddedServiceResponse GetAddedStatementByOrder(Operation expression)
         {
             var statement = context.StatementForAddedServices.ToList().FirstOrDefault(s => expression(s));
             if (statement != null)
@@ -108,9 +109,9 @@ namespace PapsCourse.Server.Models.Repositories
             return null;
         }
 
-        private StatementForAddedService ConvertToAddedStatement(Shared.DbModels.StatementForAddedService statement)
+        private StatementForAddedServiceResponse ConvertToAddedStatement(Shared.DbModels.StatementForAddedService statement)
         {
-            return new StatementForAddedService
+            return new StatementForAddedServiceResponse
             {
                 Id = statement.Id,
                 ServiceId = statement.ServiceId,
@@ -136,7 +137,7 @@ namespace PapsCourse.Server.Models.Repositories
                     Id = join.Statement.Id,
                     Date = join.Statement.Date,
                     Store = join.Store.Name,
-                    IsSuccessful = join.Statement.AnswerStatementId != 0,
+                    IsSuccessful = join.Statement.AnswerStatementId == 0 ? null : (bool?)(context.AnswerStatements.FirstOrDefault(a => a.Id == join.Statement.AnswerStatementId).IsSuccess),
                     AreaId = join.Statement.SquareId
                 }).ToList();
         }
@@ -152,7 +153,7 @@ namespace PapsCourse.Server.Models.Repositories
                     Id = join.LastJoin.Statement.Id,
                     Date = join.LastJoin.Statement.Date,
                     Store = join.Store.Name,
-                    IsSuccessful = join.LastJoin.Statement.AnswerStatementId != 0,
+                    IsSuccessful = join.LastJoin.Statement.AnswerStatementId == 0 ? null : (bool?)(context.AnswerStatements.FirstOrDefault(a => a.Id == join.LastJoin.Statement.AnswerStatementId).IsSuccess),
                     AreaId = join.LastJoin.Area.Id,
                     Category = context.Services
                                .FirstOrDefault(s => s.Id == join.LastJoin.Statement.ServiceId).Name

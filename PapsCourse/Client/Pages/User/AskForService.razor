@@ -1,5 +1,7 @@
 ﻿@page "/area/{AreaId:int}/service"
-@using PapsCourse.Shared.Models.Area 
+@using PapsCourse.Shared.Models.Requests
+@using PapsCourse.Shared.DbModels
+@inject HttpClient HttpClient
 
 <link href="/css/mall/rent.css" rel="stylesheet" type="text/css" />
 
@@ -14,20 +16,20 @@
         <input type="text" class="request-input w-100 form-control" value="@AreaId" readonly="readonly" />
         <div class="request-title mt-4 mb-1">
             Тип услуги
-        </div>        
-            @if (services != null)
-            {
-                <select class="form-control" @bind="request.ServiceId">
-                    @foreach (var service in services)
-                    {
-                        <option value="@service.Id">@service.Name</option>
-                    }
-                </select>
-            }        
+        </div>
+        @if (services != null)
+        {
+            <select class="form-control" @bind="request.ServiceId">
+                @foreach (var service in services)
+                {
+                    <option value="@service.Id">@service.Name</option>
+                }
+            </select>
+        }
         <div class="request-title mt-3 mb-1">
             Дата выполнения
         </div>
-        <input type="datetime" class="request-input w-100 form-control" @bind="request.Date" />        
+        <input type="datetime" class="request-input w-100 form-control" @bind="request.Date" />
         <div class="request-title mt-2 mb-1">
             Сообщение (необязательно)
         </div>
@@ -42,29 +44,17 @@
     public int AreaId { get; set; }
     private List<Service> services;
 
-    private ServiceRequest request = new ServiceRequest();
+    private AddServiceRequest request = new AddServiceRequest();
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        services = new List<Service>()
-        {
-            new Service()
-            {
-                Name =  "Cleaning",
-                Id = 1
-
-            },
-            new Service()
-            {
-                Name =  "Repair",
-                Id = 2
-            }
-        };
+        request.SquareId = AreaId;
+        services = await HttpClient.GetFromJsonAsync<List<Service>>("/api/service/getservices");
     }
 
-    private void SendRequest()
+    private async Task SendRequest()
     {
-
+        await HttpClient.PostAsJsonAsync("/api/statement/addstatementaddedservice", request);
     }
 }

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace PapsCourse.Server.Models.Repositories
 {
@@ -29,7 +30,8 @@ namespace PapsCourse.Server.Models.Repositories
                     HasToilet = area.HasToilet,
                     EntriesCount = area.EntriesCount,
                     Price = area.SquarePrice,
-                    WindowsCount = area.WindowsCount
+                    WindowsCount = area.WindowsCount,
+                    PlanImage = area.PlanImage
                 };
             return null;
         }
@@ -43,21 +45,34 @@ namespace PapsCourse.Server.Models.Repositories
                 HasToilet = a.HasToilet,
                 EntriesCount =a.EntriesCount,
                 Price = a.SquarePrice,
-                WindowsCount = a.WindowsCount
+                WindowsCount = a.WindowsCount,
+                PlanImage = a.PlanImage
             }).ToList();
         }
 
-        public void Update(EditSquareRequest request)
+        public List<UserArea> GetAreasByUserId(int userId)
+        {
+            return context.Areas                
+                .Join(context.Stores,a=>a.StoreId,s=>s.Id,(a,s)=>new {Id = a.Id, Store = s.Name, UserId = s.UserId })
+                .Where(join=>join.UserId == userId)
+                .Select(r=>new UserArea() { 
+                    Id = r.Id,
+                    Store = r.Store                    
+                }).ToList();
+        }
+
+        public void Update(AreaResponse request)
         {
             var editSquare = context.Areas.FirstOrDefault(s => s.Id == request.Id);
             if (editSquare != null) 
             {
-                editSquare.SquarePrice = request.SquarePrice;
-                editSquare.Square = request.SquareValue;
+                editSquare.SquarePrice = request.Price;
+                editSquare.Square = request.Square;
                 editSquare.WindowsCount = request.WindowsCount;
                 editSquare.EntriesCount = request.EntriesCount;
-                editSquare.HasConditioner = request.HasContioner;
+                editSquare.HasConditioner = request.HasConditioner;
                 editSquare.HasToilet = request.HasToilet;
+                editSquare.PlanImage = request.PlanImage;
                 context.SaveChanges();
             }
         }

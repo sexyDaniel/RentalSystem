@@ -1,4 +1,5 @@
 ﻿using PapsCourse.Server.Interfaces;
+using PapsCourse.Shared.DbModels;
 using PapsCourse.Shared.Models.Area;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace PapsCourse.Server.Repositories
         }
         public List<Service> GetServices()
         {
-            return context.Services.Select(s=>new Service {Id=s.Id,Name=s.Name }).ToList();
+            return context.Services.ToList();
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PapsCourse.Server.Interfaces;
+using PapsCourse.Shared.DbModels;
 using PapsCourse.Shared.Models;
+using PapsCourse.Shared.Models.Area;
 using PapsCourse.Shared.Models.Requests;
 using System;
 using System.Collections.Generic;
@@ -30,6 +32,12 @@ namespace PapsCourse.Server.Controllers
         public void AddAnswerForService(AnswerStatementRequest request)
         {
             answerRepository.AnswerForService(request);
+        }
+
+        [HttpGet("getbyid/{id}")]
+        public AnswerStatement GetById(int id)
+        {
+            return answerRepository.GetById(id);
         }
     }
 }

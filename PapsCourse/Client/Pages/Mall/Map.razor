@@ -136,7 +136,7 @@
                     @switch (selectedAreaInfoView)
                     {
                         case 0:
-                            <img src="/images/areas/plan-1.jpg" />
+                            <img src="@SelectedArea.PlanImage" />
                             break;
                         case 1:
                             <svg viewBox="52.407 10.014 1215.309 609.711" xmlns="http://www.w3.org/2000/svg">
@@ -216,6 +216,21 @@
                         </div>
                         <div class="col">
                             @if (SelectedArea.HasConditioner)
+                            {
+                                <span>Есть</span>
+                            }
+                            else
+                            {
+                                <span>нет</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            Туалет:
+                        </div>
+                        <div class="col">
+                            @if (SelectedArea.HasToilet)
                             {
                                 <span>Есть</span>
                             }

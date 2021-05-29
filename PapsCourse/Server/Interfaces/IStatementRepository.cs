@@ -13,8 +13,8 @@ namespace PapsCourse.Server.Interfaces
         List<TableServiceStatement> GetAddedStatementsByUserId(int userId);
         List<TableRentStatement> GetRentStatements();
         List<TableServiceStatement> GetAddedStatements();
-        StatementForRent GetRentStatmentById(int statementID);
-        StatementForAddedService GetAddedStatmentById(int statementID);
+        StatementForRentResponse GetRentStatmentById(int statementID);
+        StatementForAddedServiceResponse GetAddedStatmentById(int statementID);
 
         void AddStatementForRent(Shared.DbModels.StatementForRent statementForRent);
         void AddStatementForAddedService(Shared.DbModels.StatementForAddedService statementForAddedService);

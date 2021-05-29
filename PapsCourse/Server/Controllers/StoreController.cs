@@ -47,7 +47,8 @@ namespace PapsCourse.Server.Controllers
                         StartTime = request.StartTime,
                         EndTime = request.FinishTime,
                         Phone = request.Phone,
-                        Name = request.Name
+                        Name = request.Name,
+                        Logo = request.Logo,                        
                     });
                 }
                 else 

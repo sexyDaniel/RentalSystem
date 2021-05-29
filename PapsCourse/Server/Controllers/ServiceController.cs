@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PapsCourse.Server.Interfaces;
+using PapsCourse.Shared.DbModels;
 using PapsCourse.Shared.Models.Area;
 using System;
 using System.Collections.Generic;

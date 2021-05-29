@@ -1,6 +1,8 @@
 ﻿@page "/statements"
 @using Microsoft.AspNetCore.Authorization;
 @using PapsCourse.Shared.Models.Area;
+@inject PapsCourse.Client.Services.Abstract.IAccountSession Session
+@inject HttpClient HttpClient
 @attribute [Authorize]
 
 <link href="/css/admin/statements.css" rel="stylesheet" />
@@ -35,7 +37,7 @@
                             <td>@statement.Date.ToShortDateString()</td>
                             <td>@(statement.IsSuccessful==true? "✔️" : statement.IsSuccessful==false? "❌" : "")</td>
                             <td>
-                                <a href="/area/statements/rent/1" class="statement-eye">
+                                <a href="@($"/area/statements/rent/{statement.Id}")" class="statement-eye">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
                                         <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
                                         <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
@@ -74,7 +76,7 @@
                             <td>@statement.Date.ToShortDateString()</td>
                             <td>@(statement.IsSuccessful==true? "✔️" : statement.IsSuccessful==false? "❌" : "")</td>
                             <td>
-                                <a href="/area/statements/service/1" class="statement-eye">
+                                <a href="@($"/area/statements/service/{statement.Id}")" class="statement-eye">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
                                         <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
                                         <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
@@ -102,72 +104,35 @@
 
     protected override async Task OnInitializedAsync()
     {
-        base.OnInitializedAsync();
+        await base.OnInitializedAsync();
         await LoadStatements();
     }
 
     private async Task LoadStatements()
     {
-        // if dmin - load everything
-        // if user - load only user's statements
-
-        RentStatements = new List<TableRentStatement>()
+        if (bool.Parse(Session.GetValue("isAdmin")))
         {
-            new TableRentStatement()
+            try
             {
-                IsSuccessful = true,
-                Date = DateTime.Now,
-                Store = "Магнит",
-                Id = 2090,
-                AreaId = 1212
-            },
-            new TableRentStatement()
-            {
-                IsSuccessful = null,
-                Date = DateTime.Now,
-                Store = "Восьмерочка",
-                Id = 2090,
-                AreaId = 2091
-            },
-             new TableRentStatement()
-            {
-                IsSuccessful = false,
-                Date = DateTime.Now,
-                Store = "Газмяс",
-                Id = 2390,
-                AreaId = 2191
+                RentStatements = await HttpClient.GetFromJsonAsync<List<TableRentStatement>>("/api/statement/getstatementsforrent");
+                ServiceStatements = await HttpClient.GetFromJsonAsync<List<TableServiceStatement>>("/api/statement/GetStatementsForAddedService");
             }
-        };
+            catch
+            {
 
-        ServiceStatements = new List<TableServiceStatement>()
-        {
-            new TableServiceStatement()
-            {
-                Store = "Газмяс",
-                AreaId = 1212,
-                Category = "Клининг",
-                Date  = DateTime.Now,
-                Id = 1214,
-                IsSuccessful = true
-            },
-            new TableServiceStatement()
-            {
-                Store = "Магнит",
-                AreaId = 1212,
-                Category = "Ремонт",
-                Date  = DateTime.Now,
-                Id = 1814,
-                IsSuccessful = null
-            },
-            new TableServiceStatement()
-            {
-                Store = "Мухобойка",
-                AreaId = 1212,
-                Category = "Интим",
-                Date  = DateTime.Now,
-                Id = 1314,
-                IsSuccessful = false
             }
-        };
+        }
+        else
+        {
+            try
+            {
+                RentStatements = await HttpClient.GetFromJsonAsync<List<TableRentStatement>>($"/api/statement/getrentstatements/{Session.GetValue("ID")}");
+                ServiceStatements = await HttpClient.GetFromJsonAsync<List<TableServiceStatement>>($"/api/statement/getaddedstatements/{Session.GetValue("ID")}");
+            }
+            catch
+            {
+
+            }
+        }
     }
 }

@@ -123,7 +123,7 @@
 
     private async Task SendRentRequestAsync()
     {
-        var request = new StatementForRent()
+        var request = new StatementForRentResponse()
         {
             StoreId = storeId,
             CategoryId = categoryId,
@@ -132,16 +132,13 @@
             SquareId = AreaId
         };
         var response = await HttpClient.PostAsJsonAsync("api/Statement/addStatementRent", request);
-        //var result = await response.Content.ReadFromJsonAsync<Response>();
-
-        // send to the server
     }
 
     private async Task LoadData()
     {
-        //CurrentArea = await HttpClient.GetFromJsonAsync<Area>($"api/Area/getAreaById/{AreaId}");
-        //categories = await HttpClient.GetFromJsonAsync<List<Category>>($"api/Category/getCategories");
-        //stores = await HttpClient.GetFromJsonAsync<List<Store>>($"api/Store/getStores/{Session.GetValue("ID")}");
+        CurrentArea = await HttpClient.GetFromJsonAsync<AreaResponse>($"/api/Area/getAreaById/{AreaId}");
+        categories = await HttpClient.GetFromJsonAsync<List<CategoryResponse>>($"/api/Category/getCategories");
+        stores = await HttpClient.GetFromJsonAsync<List<StoreResponse>>($"/api/Store/getStores/{Session.GetValue("ID")}");
     }
 
     protected override async Task OnInitializedAsync()

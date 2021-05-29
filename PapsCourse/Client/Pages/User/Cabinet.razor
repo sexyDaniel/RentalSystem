@@ -1,6 +1,8 @@
 ﻿@page "/cabinet"
 @using PapsCourse.Shared.DbModels
 @using PapsCourse.Shared.Models.Area
+@inject HttpClient HttpClient
+@inject PapsCourse.Client.Services.Abstract.IAccountSession Session
 
 <h1 class="mb-3">Личный кабинет</h1>
 <div class="row">
@@ -59,8 +61,7 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Название</th>
-                        <th scope="col">Часы работы</th>
+                        <th scope="col">Название</th>                        
                         <th scope="col"></th>
                     </tr>
                 </thead>
@@ -69,8 +70,7 @@
                     {
                         <tr class="">
                             <th scope="row">@store.Id</th>
-                            <td>@store.Name</td>
-                            <td>@(store.StartTime +"-"+store.EndTime)</td>
+                            <td>@store.Name</td>                            
                             <td>
                                 <a href="/area/statements/rent/1" class="statement-eye">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
@@ -81,8 +81,8 @@
                             </td>
                         </tr>
                     }
-                    </tbody>
-            </table>            
+                </tbody>
+            </table>
         }
         <h3 class="mt-4 mb-3">Арендуемые площади</h3>
         @if (areas != null)
@@ -109,15 +109,15 @@
                             </td>
                         </tr>
                     }
-                    </tbody>
-            </table>            
+                </tbody>
+            </table>
         }
 
     </div>
     <div class="col-auto">
         <h3 class="mb-3">Действия</h3>
         <div class="d-flex flex-column">
-            <button class="my-1">Изменить данные</button>                        
+            <button class="my-1">Изменить данные</button>
             <a href="/store/registration" class="my-1 button">Зарегистрировать магазин</a>
             <a href="/map" class="my-1 button">Арендовать площадь</a>
         </div>
@@ -127,43 +127,18 @@
 @code {
 
     private User user;
-    private List<Store> stores;
+    private List<StoreResponse> stores;
     private List<UserArea> areas;
 
     protected override async Task OnInitializedAsync()
     {
+        string userId = Session.GetValue("ID");
         await base.OnInitializedAsync();
-        user = new User()
-        {
-            Email = "email",
-            FirstName = "firstname",
-            LastName = "lastname",
-            Patronymic = "daunich",
-            Phone = "0-0"
-        };
+        user = await HttpClient.GetFromJsonAsync<User>($"/account/getUser/{userId}");
 
-        stores = new List<Store>()
-        {
-            new Store()
-            {
-                Name = "Magnat",
-                Id = 4080
-            },
-            new Store()
-            {
-                Name = "5-ka",
-                Id = 4080
-            }
-        };
+        stores = await HttpClient.GetFromJsonAsync<List<StoreResponse>>($"/api/store/getStores/{userId}");
 
-        areas = new List<UserArea>()
-        {
-            new UserArea()
-            {
-                Id = 2020,
-                Store = "Magnit",
-                RentBefore = DateTime.Now
-            }
-        };
+        areas = await HttpClient.GetFromJsonAsync<List<UserArea>>($"/api/area/getAreasByUserId/{userId}");
+                  
     }
 }

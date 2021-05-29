@@ -11,5 +11,6 @@ namespace PapsCourse.Shared.Models.Requests
         public string StartTime { get; set; }
         public string FinishTime { get; set; }
         public string Phone { get; set; }
+        public string Logo { get; set; }
     }
 }

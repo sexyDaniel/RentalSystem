@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PapsCourse.Shared.DbModels
@@ -13,7 +14,7 @@ namespace PapsCourse.Shared.DbModels
         public string EndTime { get; set; }
         [MaxLength(11)]
         public string Phone { get; set; }
-        public StatementForRent StatementForRent { get; set; }
+        public List<StatementForRent> StatementForRent { get; set; } = new List<StatementForRent>();
         public string Logo { get; set; }
     }
 }

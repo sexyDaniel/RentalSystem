@@ -21,8 +21,11 @@ namespace PapsCourse.Server.Repositories
             if (statement != null) 
             {
                 var answer = new AnswerStatement { Text = request.Text, IsSuccess = request.IsSuccess };
-                context.AnswerStatements.Add(answer);
-                statement.AnswerStatementId = request.StatementId;
+                context.AnswerStatements.Add(answer);                
+                var area = context.Areas.First(a => a.Id == statement.SquareId);
+                area.StoreId = statement.StoreId;
+                context.SaveChanges();
+                statement.AnswerStatementId = answer.Id;
                 context.SaveChanges();
             }
         }
@@ -34,9 +37,21 @@ namespace PapsCourse.Server.Repositories
             {
                 var answer = new AnswerStatement { Text = request.Text, IsSuccess = request.IsSuccess };
                 context.AnswerStatements.Add(answer);
-                statement.AnswerStatementId = request.StatementId;
                 context.SaveChanges();
+                statement.AnswerStatementId = answer.Id;
+                context.SaveChanges(); ;
             }
+        }
+
+        public AnswerStatement GetById(int id)
+        {
+            var answer = context.AnswerStatements.FirstOrDefault(a => a.Id == id);
+            return new AnswerStatement()
+            {
+                Id = answer.Id,
+                IsSuccess = answer.IsSuccess,
+                Text = answer.Text
+            };
         }
     }
 }

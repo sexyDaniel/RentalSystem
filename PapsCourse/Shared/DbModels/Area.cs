@@ -16,6 +16,7 @@ namespace PapsCourse.Shared.DbModels
         public int WindowsCount { get; set; }
         public double SquarePrice { get; set; }
         public bool HasToilet { get; set; }
+        public string PlanImage { get; set; }
         public List<StatementForAddedService> StatementForAddedServices { get; set; } = new List<StatementForAddedService>();
         public List<History> Histories { get; set; } = new List<History>();
     }

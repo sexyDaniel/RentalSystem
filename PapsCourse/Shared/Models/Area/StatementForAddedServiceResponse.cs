@@ -1,11 +1,12 @@
-﻿using System;
+﻿using PapsCourse.Shared.DbModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace PapsCourse.Shared.Models.Area
 {
-    public class StatementForAddedService
+    public class StatementForAddedServiceResponse
     {
         public int Id { get; set; }
         public int ServiceId { get; set; }

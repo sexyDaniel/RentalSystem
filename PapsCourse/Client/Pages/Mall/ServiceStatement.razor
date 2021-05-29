@@ -1,8 +1,10 @@
 ﻿@page "/area/statements/service/{StatementId:int}"
 
 @using PapsCourse.Shared.Models.Area;
+@using PapsCourse.Shared.DbModels;
 @using PapsCourse.Shared.Models.Requests;
 @inject PapsCourse.Client.Services.Abstract.IAccountSession Session
+@inject HttpClient HttpClient
 
 <div class="edit-info-container px-4 w-75 pb-5">
     <h2 class="mb-5">Обращение на услугу #@StatementId</h2>
@@ -12,88 +14,88 @@
     }
     else
     {
-<div class="">
-    <div class="row my-2">
-        <div class="col-4">
-            Дата подачи:
-        </div>
-        <div class="col-8">            
-            <input class="form-control" type="text" @bind="@Statement.Date" readonly="readonly" />
-        </div>
-    </div>
-    <div class="row my-2">
-        <div class="col-4">
-            Площадь:
-        </div>
-        <div class="col-8">
-            <input class="form-control" type="text" value="#@(Statement.AreaId)" readonly="readonly" />
-        </div>
-    </div>
-    <div class="row my-2">
-        <div class="col-4">
-            Категория сервиса:
-        </div>
-        <div class="col-8">
-            <input class="form-control" @bind="Statement.Service.Name" readonly="readonly" />
-        </div>
-    </div>    
-    <div class="row my-2">
-        <div class="col-4">
-            Текст заявки
-        </div>
-        <div class="col-8">
-            <textarea class="form-control" @bind="Statement.Text" readonly="readonly"></textarea>
-        </div>
-    </div>
-    <h2 class="mt-4 mb-3">Ответ</h2>
-    @*or null*@
-    @if (Statement.AnswerStatementId == 0)
-    {
-        @if (bool.Parse(Session.GetValue("isAdmin")))
-        {
+        <div class="">
             <div class="row my-2">
                 <div class="col-4">
-                    Удовлетворить
+                    Дата подачи:
                 </div>
                 <div class="col-8">
-                    <input class="form-control w-auto" type="checkbox" @bind="AnswerRequest.IsSuccess" />
+                    <input class="form-control" type="text" @bind="@Statement.Date" readonly="readonly" />
                 </div>
             </div>
             <div class="row my-2">
                 <div class="col-4">
-                    Текст ответа
+                    Площадь:
                 </div>
                 <div class="col-8">
-                    <textarea class="form-control" @bind="AnswerRequest.Text"></textarea>
+                    <input class="form-control" type="text" value="#@(Statement.AreaId)" readonly="readonly" />
                 </div>
             </div>
-            <button class="mt-4 d-block ml-auto" @onclick="SendAnswer">Ответить</button>
-        }
-        else
-        {
-            <p>Заявка находится на рассмотрении у администратора</p>
-        }
-    }
-    else
-    {
-        <div class="row my-2">
-            <div class="col-4">
-                Удовлетворено
+            <div class="row my-2">
+                <div class="col-4">
+                    Категория сервиса:
+                </div>
+                <div class="col-8">
+                    <input class="form-control" @bind="Statement.Service.Name" readonly="readonly" />
+                </div>
             </div>
-            <div class="col-8">
-                <input class="form-control w-auto" type="checkbox" @bind="Answer.IsSuccess" readonly="readonly" />
+            <div class="row my-2">
+                <div class="col-4">
+                    Текст заявки
+                </div>
+                <div class="col-8">
+                    <textarea class="form-control" @bind="Statement.Text" readonly="readonly"></textarea>
+                </div>
             </div>
+            <h2 class="mt-4 mb-3">Ответ</h2>
+            @*or null*@
+            @if (Statement.AnswerStatementId == 0)
+            {
+                @if (bool.Parse(Session.GetValue("isAdmin")))
+                {
+                    <div class="row my-2">
+                        <div class="col-4">
+                            Удовлетворить
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control w-auto" type="checkbox" @bind="AnswerRequest.IsSuccess" />
+                        </div>
+                    </div>
+                    <div class="row my-2">
+                        <div class="col-4">
+                            Текст ответа
+                        </div>
+                        <div class="col-8">
+                            <textarea class="form-control" @bind="AnswerRequest.Text"></textarea>
+                        </div>
+                    </div>
+                    <button class="mt-4 d-block ml-auto" @onclick="SendAnswer">Ответить</button>
+                }
+                else
+                {
+                    <p>Заявка находится на рассмотрении у администратора</p>
+                }
+            }
+            else
+            {
+                <div class="row my-2">
+                    <div class="col-4">
+                        Удовлетворено
+                    </div>
+                    <div class="col-8">
+                        <input class="form-control w-auto" type="checkbox" @bind="Answer.IsSuccess" readonly="readonly" />
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-4">
+                        Текст ответа
+                    </div>
+                    <div class="col-8">
+                        <textarea class="form-control" @bind="Answer.Text" readonly="readonly"></textarea>
+                    </div>
+                </div>
+            }
         </div>
-        <div class="row my-2">
-            <div class="col-4">
-                Текст ответа
-            </div>
-            <div class="col-8">
-                <textarea class="form-control" @bind="Answer.Text" readonly="readonly"></textarea>
-            </div>
-        </div>
-    }
-</div>
     }
 </div>
 
@@ -102,26 +104,14 @@
     [Parameter]
     public int StatementId { get; set; }
 
-    private StatementForAddedService Statement { get; set; }
+    private StatementForAddedServiceResponse Statement { get; set; }
     private AnswerStatementRequest AnswerRequest { get; set; }
     private AnswerStatement Answer { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        // load from server
-        Statement = new StatementForAddedService()
-        {
-            Id = 1,
-            AreaId = 1,
-            AnswerStatementId = 1,
-            Text = "Help me",
-            Service = new Service()
-            {
-                Name = "Cleaning"
-            },
-            Date = DateTime.Now            
-        };
+        Statement = await HttpClient.GetFromJsonAsync<StatementForAddedServiceResponse>($"/api/statement/GetStatementsForAddedService/{StatementId}");
 
         if (Statement.AnswerStatementId == 0)
         {
@@ -129,25 +119,14 @@
         }
         else
         {
-            // load form server
-            Answer = new AnswerStatement()
-            {
-                IsSuccess = true,
-                Text = "Соглы, арендуй"
-            };
+            Answer = await HttpClient.GetFromJsonAsync<AnswerStatement>($"/api/answer/getbyid/{Statement.AnswerStatementId}");
         }
     }
 
     private async Task SendAnswer()
     {
-        var answer = new AnswerStatementRequest()
-        {
-            StatementId = StatementId,
-            Text = "",
-            IsSuccess = true
-        };
-
-        // await send
+        AnswerRequest.StatementId = Statement.Id;
+        await HttpClient.PostAsJsonAsync("/api/answer/addanswerforservice", AnswerRequest);
     }
 
 }

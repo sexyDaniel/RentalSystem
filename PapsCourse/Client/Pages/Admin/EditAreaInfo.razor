@@ -1,6 +1,7 @@
 ﻿@page "/admin/area/edit/{AreaId:int}"
 @using PapsCourse.Shared.Models.Area; 
 @using PapsCourse.Client.Attributes
+@inject HttpClient HttpClient
 @attribute [Admin]
 
 <link  href="/css/admin/editAreaInfo.css" type="text/css" rel="stylesheet"/>
@@ -16,63 +17,67 @@
                 <input class="form-control" type="text" value="#@(AreaId)" readonly="readonly" />
             </div>
         </div>
-        <div class="row my-5">
-            <div class="col-4">
-                Изображение плана
+        @if (Area != null)
+        {
+            <div class="row my-5">
+                <div class="col-4">
+                    Изображение плана
+                </div>
+                <div class="col-8">
+                    <input type="text" @bind="@Area.PlanImage" class="mb-3" />
+                    <img src="@Area.PlanImage" />
+                </div>
             </div>
-            <div class="col-8">
-                <input type="text" @bind="@Area.PlanImage" class="mb-3"/>
-                <img src="@Area.PlanImage" />
+            <div class="row my-2">
+                <div class="col-4">
+                    Площадь:
+                </div>
+                <div class="col-8">
+                    <input class="form-control" type="number" @bind="Area.Square" />
+                </div>
             </div>
-        </div>
-        <div class="row my-2">
-            <div class="col-4">
-                Площадь:
+            <div class="row my-2">
+                <div class="col-4">
+                    Наличие кондиционера
+                </div>
+                <div class="col-8">
+                    <input class="form-control w-auto" type="checkbox" @bind="Area.HasConditioner" />
+                </div>
             </div>
-            <div class="col-8">
-                <input class="form-control" type="number" @bind="Area.Square" />
+            <div class="row my-2">
+                <div class="col-4">
+                    Наличие туалета
+                </div>
+                <div class="col-8">
+                    <input class="form-control w-auto" type="checkbox" @bind="Area.HasToilet" />
+                </div>
             </div>
-        </div>
-        <div class="row my-2">
-            <div class="col-4">
-                Наличие кондиционера
+            <div class="row my-2">
+                <div class="col-4">
+                    Кол-во входов
+                </div>
+                <div class="col-8">
+                    <input class="form-control" type="number" @bind="Area.EntriesCount" />
+                </div>
             </div>
-            <div class="col-8">
-                <input class="form-control w-auto" type="checkbox" @bind="Area.HasConditioner" />
+            <div class="row my-2">
+                <div class="col-4">
+                    Кол-во окон
+                </div>
+                <div class="col-8">
+                    <input class="form-control" type="number" @bind="Area.WindowsCount" />
+                </div>
             </div>
-        </div>
-        <div class="row my-2">
-            <div class="col-4">
-                Наличие туалета
+            <div class="row my-2">
+                <div class="col-4">
+                    Стоимость
+                </div>
+                <div class="col-8">
+                    <input class="form-control" type="number" @bind="Area.Price" />
+                </div>
             </div>
-            <div class="col-8">
-                <input class="form-control w-auto" type="checkbox" @bind="Area.HasToilet" />
-            </div>
-        </div>
-        <div class="row my-2">
-            <div class="col-4">
-                Кол-во входов
-            </div>
-            <div class="col-8">
-                <input class="form-control" type="number" @bind="Area.EntriesCount" />
-            </div>
-        </div>
-        <div class="row my-2">
-            <div class="col-4">
-                Кол-во окон
-            </div>
-            <div class="col-8">
-                <input class="form-control" type="number" @bind="Area.WindowsCount" />
-            </div>
-        </div>
-        <div class="row my-2">
-            <div class="col-4">
-                Стоимость
-            </div>
-            <div class="col-8">
-                <input class="form-control" type="number" @bind="Area.Price" />
-            </div>
-        </div>
+        }
+
         <button @onclick="SaveAreaInfoAsync" class="mt-4 d-block ml-auto">Сохранить</button>
     </div>
 </div>
@@ -85,18 +90,11 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Area = await LoadAreaAsync();
-    }
-
-    private async Task<AreaResponse> LoadAreaAsync()
-    {
-        // load from the server
-        return new AreaResponse() { EntriesCount = 3, HasConditioner = true, HasToilet = false, PlanImage = "/images/areas/plan-1.jpg", Price = 10.5, Square = 1000.5, WindowsCount = 201, Id = 4082 };
-    }
+        Area = await HttpClient.GetFromJsonAsync<AreaResponse>($"/api/area/getAreaById/{AreaId}");
+    }    
 
     private async Task SaveAreaInfoAsync()
     {
-        // send to the server
-        Console.WriteLine(Area.HasConditioner);
-    }    
+        await HttpClient.PutAsJsonAsync("/api/area/editarea", Area);
+    }
 }

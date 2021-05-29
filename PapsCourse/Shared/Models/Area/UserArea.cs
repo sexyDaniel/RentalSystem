@@ -8,6 +8,6 @@ namespace PapsCourse.Shared.Models.Area
     {
         public int Id { get; set; }
         public string Store { get; set; }
-        public DateTime RentBefore { get; set; }
+        public DateTime RentBefore { get; set; } = DateTime.Now.AddMonths(4);
     }
 }

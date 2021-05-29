@@ -28,7 +28,7 @@ namespace PapsCourse.Server.Controllers
         }
 
         [HttpGet("GetStatementsForRent/{StatementId}")]
-        public StatementForRent GetStatementForRents(int StatementId)
+        public StatementForRentResponse GetStatementForRents(int StatementId)
         {
             return statementRepository.GetRentStatmentById(StatementId);
         }
@@ -45,8 +45,8 @@ namespace PapsCourse.Server.Controllers
             return statementRepository.GetAddedStatementsByUserId(UserId);
         }
 
-        [HttpGet("GetStatementsForAddedSevice/{StatementId}")]
-        public StatementForAddedService GetStatementsForAddedSevice(int StatementId)
+        [HttpGet("GetStatementsForAddedService/{StatementId}")]
+        public StatementForAddedServiceResponse GetStatementsForAddedSevice(int StatementId)
         {
             return statementRepository.GetAddedStatmentById(StatementId);
         }
@@ -65,7 +65,8 @@ namespace PapsCourse.Server.Controllers
                 StoreId=request.StoreId,
                 CategoryId = request.CategoryId,
                 AverageReciept = request.AverageReciept,
-                SquareId = request.SquareId
+                SquareId = request.SquareId,
+                Date = DateTime.Now
             });
             return Ok();
         }
